@@ -1,0 +1,62 @@
+.dashboard-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Fondo claro */
+  }
+  
+  .dashboard-card {
+    width: 500px;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .dashboard-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5b0d1f; /* Color guinda */
+  }
+  
+  .dashboard-info {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .dashboard-buttons {
+    margin-top: 15px;
+  }
+  
+  .dashboard-buttons .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #5b0d1f;
+    border-color: #5b0d1f;
+  }
+  
+  .btn-primary:hover {
+    background-color: #8a172f;
+    border-color: #8a172f;
+  }
+  
+  .btn-secondary {
+    background-color: #d3d3d3;
+    color: black;
+  }
+  
+  .btn-danger {
+    background-color: #ab3d4c;
+    border-color: #ab3d4c;
+  }
+  
+  .btn-danger:hover {
+    background-color: #8a172f;
+    border-color: #8a172f;
+  }
+  
