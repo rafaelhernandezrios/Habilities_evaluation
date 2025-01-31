@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Configurar CORS para permitir peticiones desde el frontend
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://habilities-evaluation-1.onrender.com"],
+  origin: ["http://localhost:3000", "https://habilities-evaluation.onrender.com"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };

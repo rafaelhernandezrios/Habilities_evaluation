@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import SoftSkills from "./pages/SoftSkills";
 import HardSkills from "./pages/HardSkills";
+import Register from "./pages/Register";
 
 
 function App() {
