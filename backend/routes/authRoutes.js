@@ -6,7 +6,6 @@ import User from "../models/User.js";
 const router = express.Router();
 
 // Registro de usuario
-// Registro de usuario
 router.post("/register", async (req, res) => {
     try {
       const { name, email, password, institution, title, research_area } = req.body;
@@ -36,9 +35,6 @@ router.post("/register", async (req, res) => {
       res.status(500).json({ message: "Error en el servidor", error });
     }
   });
-  
-  export default router;
-
 // Login de usuario
 router.post("/login", async (req, res) => {
   try {
@@ -83,5 +79,4 @@ const authMiddleware = (req, res, next) => {
     }
   };
   
-
 export { router as authRoutes, authMiddleware };
