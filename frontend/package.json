@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rafaelhernandezrios.github.io/Habilities_evaluation",
+  "homepage": "https://habilities-evaluation-1.onrender.com",
   "dependencies": {
     "@tailwindcss/cli": "^4.0.1",
     "@tailwindcss/postcss": "^4.0.1",
