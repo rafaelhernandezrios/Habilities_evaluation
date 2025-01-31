@@ -1,0 +1,70 @@
+.hardskills-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .hardskills-title {
+    color: #5b0d1f;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .progress-container {
+    width: 100%;
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: #5b0d1f;
+    border-radius: 5px;
+  }
+  
+  .question {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .question label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .options label {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #5b0d1f;
+    border-color: #5b0d1f;
+  }
+  
+  .btn-primary:hover {
+    background-color: #8a172f;
+    border-color: #8a172f;
+  }
+  

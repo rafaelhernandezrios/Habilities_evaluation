@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import { authRoutes } from "./routes/authRoutes.js";
+import surveyRoutes from "./routes/surveyRoutes.js"; // Asegurar que está importado
 
 
 
@@ -32,3 +33,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 app.use('/api/users', userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/surveys", surveyRoutes); // Registrar la ruta correctamente

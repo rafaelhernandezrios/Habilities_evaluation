@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/Dashboard.css"; // Asegúrate de tener el CSS correcto
+import "../styles/Dashboard.css";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +40,29 @@ const Dashboard = () => {
     fetchUserData();
   }, [navigate]);
 
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      setMessage("Selecciona un archivo PDF.");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await axios.post("http://localhost:5000/api/users/upload-cv", formData, {
+        headers: { "Authorization": token, "Content-Type": "multipart/form-data" },
+      });
+      setMessage("CV subido con éxito.");
+      setShowModal(false);
+      window.location.reload();
+    } catch (error) {
+      setMessage("Error al subir el archivo.");
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -52,12 +78,16 @@ const Dashboard = () => {
             <p><strong>Nombre:</strong> {user.name}</p>
             <p><strong>Email:</strong> {user.email}</p>
 
-            {/* Estado del CV */}
+            {/* Estado del CV con Modal de Carga */}
             <p><strong>CV:</strong> {status.cvUploaded ? "✅ Subido" : "❌ No subido"}</p>
-            {!status.cvUploaded && <a href="/upload-cv" className="btn btn-warning w-100">Subir CV</a>}
+            {!status.cvUploaded && (
+              <button className="btn btn-warning w-100" onClick={() => setShowModal(true)}>
+                Subir CV
+              </button>
+            )}
 
-            {/* Estado del Análisis del CV */}
-            <p><strong>Etrevista Personalizada:</strong> {status.cvAnalyzed ? "✅ Realizado" : "❌ No realizado"}</p>
+            {/* Estado de la Entrevista Personalizada (Análisis GPT) */}
+            <p><strong>Entrevista Personalizada:</strong> {status.cvAnalyzed ? "✅ Realizado" : "❌ No realizado"}</p>
             {!status.cvAnalyzed && <a href="/analyze-cv" className="btn btn-info w-100">Analizar CV y generar Entrevista</a>}
 
             {/* Estado de la Encuesta de Habilidades Blandas */}
@@ -78,6 +108,23 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
+
+      {/* Modal de Subida de CV */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h4>Subir CV</h4>
+            <input type="file" accept="application/pdf" onChange={(e) => setFile(e.target.files[0])} />
+            <button className="btn btn-primary w-100 mt-3" onClick={handleUpload}>
+              Subir
+            </button>
+            <button className="btn btn-secondary w-100 mt-2" onClick={() => setShowModal(false)}>
+              Cancelar
+            </button>
+            {message && <p className="text-danger mt-2">{message}</p>}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
