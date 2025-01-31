@@ -6,9 +6,17 @@ import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import { authRoutes } from "./routes/authRoutes.js";
 import surveyRoutes from "./routes/surveyRoutes.js"; // Asegurar que está importado
+import cors from "cors";
 
 
+// Configurar CORS para permitir peticiones desde el frontend
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://habilities-evaluation-1.onrender.com"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
 
+app.use(cors(corsOptions));
 dotenv.config();
 
 const app = express();

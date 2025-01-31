@@ -29,7 +29,7 @@ const UploadCV = () => {
     formData.append("file", file);
   
     try {
-      const response = await axios.post("http://localhost:5000/api/users/upload-cv", formData, {
+      const response = await axios.post("https://habilities-evaluation.onrender.com/api/users/upload-cv", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token.replace("Bearer ", "")}`, // 🔹 Asegurar que el token tiene el prefijo correcto

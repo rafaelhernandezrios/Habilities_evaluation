@@ -24,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
+      await axios.post("https://habilities-evaluation.onrender.com/api/auth/register", form);
       setMessage("Usuario registrado con éxito. Redirigiendo...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {

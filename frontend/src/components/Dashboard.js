@@ -20,7 +20,7 @@ const Dashboard = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me", {
+        const response = await axios.get("https://habilities-evaluation.onrender.com/api/users/me", {
           headers: { Authorization: token },
         });
         setUser(response.data);
@@ -44,7 +44,7 @@ const Dashboard = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://localhost:5000/api/users/upload-cv", formData, {
+      await axios.post("https://habilities-evaluation.onrender.com/api/users/upload-cv", formData, {
         headers: { "Authorization": token, "Content-Type": "multipart/form-data" },
       });
       setMessage("CV subido con éxito.");
