@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { authRoutes } from "./routes/authRoutes.js"; 
+import {authRoutes} from "./routes/authRoutes.js"; 
 import surveyRoutes from "./routes/surveyRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
@@ -12,10 +12,15 @@ app.use(express.json());
 
 // Configurar CORS correctamente
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://habilities-evaluation.onrender.com"],
+  origin: [
+    "http://localhost:3000", 
+    "https://habilities-evaluation-1.onrender.com",
+    "https://habilities-evaluation.onrender.com"
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 
