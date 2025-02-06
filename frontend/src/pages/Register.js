@@ -31,7 +31,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://14.10.2.192:20352/api/auth/register", form);
+      await axios.post("http://44.226.145.213:20352/api/auth/register", form);
       setMessage("Usuario registrado con éxito. Redirigiendo...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {

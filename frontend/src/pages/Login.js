@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://14.10.2.192:20352/api/auth/login", form);
+      const res = await axios.post("http://44.226.145.213:20352/api/auth/login", form);
       localStorage.setItem("token", `Bearer ${res.data.token}`);
       setMessage("Inicio de sesión exitoso. Redirigiendo...");
       setTimeout(() => navigate("/dashboard"), 2000);

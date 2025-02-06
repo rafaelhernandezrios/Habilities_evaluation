@@ -14,7 +14,7 @@ const corsOptions = {
     "http://localhost:20353", 
     "http://14.10.2.192:20353", 
     "https://habilities-evaluation-1.onrender.com",
-    "https://habilities-evaluation.onrender.com"
+    "https://44.226.145.213:20353"
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
