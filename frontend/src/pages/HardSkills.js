@@ -60,7 +60,7 @@ const HardSkills = () => {
   
     try {
       const response = await axios.post(
-        "https://habilities-evaluation.onrender.com/api/surveys/hard-skills",
+        "http://localhost:5000/api/surveys/hard-skills",
         { responses },
         { headers: { Authorization: token } }
       );
