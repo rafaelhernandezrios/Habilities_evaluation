@@ -11,18 +11,57 @@ const SoftSkills = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar preguntas desde la API o una fuente de datos (por ahora estática)
+    // Todas las preguntas extraídas del documento
     setQuestions([
-      "Me estresa exponer mis ideas frente al grupo en el aula.",
-      "Disfruto conversar con otras personas.",
-      "Busco la manera de apoyar y ayudar a mis compañeros(as).",
-      "Se me facilita comprender las ideas y las necesidades de mis compañeros(as).",
-      "Trato de conducirme de forma correcta.",
-      "Cuando entrego mis trabajos escolares soy puntual.",
-      "Me siento mal cuando de un momento a otro cambian las cosas.",
-      "Soy capaz de plantear proyectos y llevarlos a cabo.",
-      "Mis compañeros(as) consideran que mis ideas son creativas.",
-      "Puedo hacer que la gente se ponga de mi parte con facilidad."
+      "Ante la adversidad se me facilita analizar las situaciones.",
+      "Me gusta resolver problemas.",
+      "Adopto una actitud constructiva.",
+      "Pierdo el control cuando los demás no hacen lo que quiero.",
+      "Tomo buenas decisiones cuando estoy estresado(a).",
+      "Se me facilita iniciar una conversación.",
+      "Regularmente colaboro con las personas que necesitan ayuda.",
+      "Expongo mis ideas de forma clara.",
+      "He tenido problemas con la ley.",
+      "Cuando me comprometo a realizar algo lo cumplo.",
+      "Me gusta investigar e innovar nuevas soluciones.",
+      "Me entusiasma la idea de emprender actividades nuevas.",
+      "Me entusiasma crear cosas originales.",
+      "Tengo facilidad para convencer a mis compañeros(as) de que mis ideas son mejores.",
+      "Propongo estrategias al equipo para resolver dificultades.",
+      "Me gusta participar en mis equipos de trabajo.",
+      "Planifico con anticipación mis actividades.",
+      "Me siento capaz de aprender cosas nuevas.",
+      "Doy mi máximo esfuerzo.",
+      "Cuando trabajo en equipo propongo nuevas ideas.",
+      "Soy capaz de analizar diferentes propuestas antes de tomar una decisión.",
+      "Me gusta investigar y obtener ideas para la resolución de problemas.",
+      "Identifico oportunidades en situaciones complicadas que otros no aprecian.",
+      "Cuando me enojo reacciono de forma violenta.",
+      "En momentos de estrés me mantengo amable.",
+      "Se me facilita interactuar con otras personas.",
+      "Disfruto ayudar a mis compañeros(as) en clase.",
+      "Comunico mis emociones de forma espontánea, sin dificultad.",
+      "Respeto las normas y reglamentos de la escuela.",
+      "Mis compañeros(as) me consideran una persona confiable y responsable.",
+      "Me abro a nuevas ideas y experiencias.",
+      "Cuando me propongo realizar algo no paro hasta conseguirlo.",
+      "Planteo soluciones originales a los problemas que se me presentan.",
+      "Hago cambiar de opinión a mis compañeros(as) con facilidad.",
+      "Me gusta tomar la iniciativa para emprender nuevas acciones.",
+      "Fomento la motivación de mis compañeros(as) creando un ambiente agradable de trabajo.",
+      "Organizo mis actividades anticipadamente.",
+      "Aplico fácilmente mis conocimientos en situaciones nuevas.",
+      "Me gusta resolver problemas difíciles.",
+      "Elaboro por iniciativa propia nuevas actividades y proyectos.",
+      "Cuando se me presenta una dificultad soy capaz de analizar sus diferentes aspectos.",
+      "Analizo las causas de los problemas detenidamente.",
+      "Preveo los problemas y planteo soluciones de forma anticipada.",
+      "Cuando me molesto alzo la voz.",
+      "Cuando estoy presionado(a) me cuesta trabajo resolver problemas.",
+      "Se me facilita hacer amigos(as).",
+      "Me siento capaz de ayudar a mis compañeros(as) y al mismo tiempo realizar mis propias actividades.",
+      "Cuando transmito una idea verifico que me hayan comprendido.",
+      "Me gusta respetar las normas escolares."
     ]);
   }, []);
 
@@ -60,7 +99,7 @@ const SoftSkills = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/surveys/soft-skills",
+        "http://localhost:5000/api/users/submit-soft-skills",
         { responses },
         { headers: { Authorization: token } }
       );

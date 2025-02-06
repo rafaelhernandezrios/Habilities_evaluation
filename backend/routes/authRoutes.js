@@ -7,34 +7,42 @@ const router = express.Router();
 
 // Registro de usuario
 router.post("/register", async (req, res) => {
-    try {
-      const { name, email, password, institution, title, research_area } = req.body;
-  
+  try {
+      const { name, email, password, phone, dob, nationality, gender, institution, title, research_area, student_id, semester, program } = req.body;
+
       // Verificar si el usuario ya existe
       let user = await User.findOne({ email });
       if (user) return res.status(400).json({ message: "El usuario ya existe" });
-  
+
       // Encriptar la contraseña
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-  
+
       // Crear el usuario con los nuevos campos
       user = new User({
-        name,
-        email,
-        password: hashedPassword,
-        institution,
-        title,
-        research_area
+          name,
+          email,
+          password: hashedPassword,
+          phone,
+          dob,
+          nationality,
+          gender,
+          institution,
+          title,
+          research_area,
+          student_id,
+          semester,
+          program
       });
-  
+
       await user.save();
       res.status(201).json({ message: "Usuario registrado con éxito" });
-    } catch (error) {
+  } catch (error) {
       console.error("Error en el registro:", error);
       res.status(500).json({ message: "Error en el servidor", error });
-    }
-  });
+  }
+});
+
 // Login de usuario
 router.post("/login", async (req, res) => {
   try {

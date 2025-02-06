@@ -5,21 +5,27 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
+    phone: { type: String, required: true },
+    dob: { type: Date, required: true }, // Fecha de nacimiento
+    nationality: { type: String, required: true },
+    gender: { type: String, required: true },
     institution: { type: String, required: true },
     title: { type: String, required: true },
     research_area: { type: String, required: true },
-    cvPath: { type: String }, // Ruta del archivo PDF subido
-    skills: { type: Array, default: [] }, // Habilidades extraídas del CV
-    score: { type: Number, default: 0 }, // Puntaje basado en el CV
-
-    // Estado del Análisis del CV con GPT
+    student_id: { type: String, required: true },
+    semester: { type: String, required: true },
+    program: { type: String, required: true },
+    cvPath: { type: String },
+    cvFile: { type: Buffer },
+    cvText: { type: String },
+    analysis: { type: String },
+    skills: { type: Array, default: [] },
+    questions: { type: Array, default: [] },
+    score: { type: Number, default: 0 },
     cvAnalyzed: { type: Boolean, default: false },
-
-    // Estado de Encuestas de Habilidades
-    softSkillsSurveyCompleted: { type: Boolean, default: false }, // Encuesta de habilidades blandas
-    hardSkillsSurveyCompleted: { type: Boolean, default: false }, // Encuesta de habilidades duras
-
-    // Fecha de creación del usuario
+    softSkillsSurveyCompleted: { type: Boolean, default: false },
+    hardSkillsSurveyCompleted: { type: Boolean, default: false },
+    softSkillsResults: { type: Object, default: {} }, // 🆕 Guardar la evaluación de habilidades blandas
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }

@@ -1,12 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import SoftSkills from "./pages/SoftSkills";
-import HardSkills from "./pages/HardSkills";
-import Register from "./pages/Register";
-
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import SoftSkills from './pages/SoftSkills';
+import HardSkills from './pages/HardSkills';
+import AnalyzeCV from './pages/AnalyzeCV'; 
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -15,9 +17,38 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/soft-skills" element={<SoftSkills />} />
-        <Route path="/hard-skills" element={<HardSkills />} />
+        <Route
+          path="/analyze-cv"
+          element={
+            <PrivateRoute>
+              <AnalyzeCV />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/soft-skills"
+          element={
+            <PrivateRoute>
+              <SoftSkills />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/hard-skills"
+          element={
+            <PrivateRoute>
+              <HardSkills />
+            </PrivateRoute>
+          }
+         />
       </Routes>
     </Router>
   );

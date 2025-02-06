@@ -1,62 +1,86 @@
+/* Estilo para el contenedor principal del registro */
 .register-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f8f9fa; /* Fondo claro */
-  }
-  
-  .register-card {
-    width: 450px;
-    padding: 30px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .register-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #5b0d1f; /* Color guinda */
-  }
-  
-  .form-control {
-    border-radius: 8px;
-  }
-  
-  .btn-register {
-    background-color: #5b0d1f; /* Color guinda */
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .btn-register:hover {
-    background-color: #8a172f; /* Color guinda más oscuro */
-  }
-  
-  .register-message {
-    margin-top: 10px;
-    font-size: 1rem;
-  }
-  
-  .register-footer {
-    margin-top: 15px;
-    font-size: 0.9rem;
-  }
-  
-  .register-footer a {
-    color: #5b0d1f;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .register-footer a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
+  background-color: #f8f9fa; /* Fondo claro */
+  padding: 20px; /* Añade espacio alrededor para evitar que el contenido toque los bordes en pantallas pequeñas */
+}
+
+/* Estilo para la tarjeta de registro */
+.register-card {
+  width: 100%;
+  max-width: 500px; /* Limita el ancho máximo para que no se expanda demasiado en pantallas grandes */
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Estilo para el título del registro */
+.register-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #5b0d1f; /* Color guinda */
+  margin-bottom: 20px; /* Añade espacio debajo del título */
+}
+
+/* Estilo para los subtítulos de secciones */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: left; /* Alinea a la izquierda para diferenciar de los títulos principales */
+}
+
+/* Estilo para los campos del formulario */
+.form-control {
+  border-radius: 8px;
+  margin-bottom: 15px; /* Espacio entre los campos del formulario */
+}
+
+/* Estilo para el botón de registro */
+.btn-register {
+  background-color: #5b0d1f; /* Color guinda */
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 10px; /* Espacio superior para separación del formulario */
+}
+
+/* Efecto hover para el botón de registro */
+.btn-register:hover {
+  background-color: #8a172f; /* Color guinda más oscuro */
+}
+
+/* Estilo para el mensaje de registro */
+.register-message {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* Estilo para el pie de página del registro */
+.register-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+/* Estilo para los enlaces en el pie de página */
+.register-footer a {
+  color: #5b0d1f;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Efecto hover para los enlaces en el pie de página */
+.register-footer a:hover {
+  text-decoration: underline;
+}
