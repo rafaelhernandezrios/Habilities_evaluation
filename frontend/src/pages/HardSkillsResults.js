@@ -11,7 +11,7 @@ const HardSkillsResults = () => {
     const fetchResults = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/users/me", {
+        const response = await axios.get("http://14.10.2.192:20352/api/users/me", {
           headers: { Authorization: token },
         });
         // "softSkillsResults" lo guardaste en el backend como user.softSkillsResults

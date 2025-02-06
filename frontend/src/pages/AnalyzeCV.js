@@ -18,7 +18,7 @@ const AnalyzeCV = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/users/analyze-cv",
+          "http://14.10.2.192:20352/api/users/analyze-cv",
           {},
           {
             headers: { Authorization: token },
@@ -53,7 +53,7 @@ const AnalyzeCV = () => {
     const token = localStorage.getItem("token");
     try {
       await axios.post(
-        "http://localhost:5000/api/users/submit-interview",
+        "http://14.10.2.192:20352/api/users/submit-interview",
         { answers },
         {
           headers: {

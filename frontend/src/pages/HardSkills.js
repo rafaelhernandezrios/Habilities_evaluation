@@ -85,7 +85,7 @@ const HardSkills = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/submit-hard-skills",
+        "http://14.10.2.192:20352/api/users/submit-hard-skills",
         { responses },
         { headers: { Authorization: token } }
       );

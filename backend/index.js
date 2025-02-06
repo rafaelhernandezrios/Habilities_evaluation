@@ -11,7 +11,8 @@ app.use(express.json());
 // Configurar CORS correctamente
 const corsOptions = {
   origin: [
-    "http://localhost:3000", 
+    "http://localhost:20353", 
+    "http://14.10.2.192:20353", 
     "https://habilities-evaluation-1.onrender.com",
     "https://habilities-evaluation.onrender.com"
   ],
@@ -33,7 +34,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/surveys", surveyRoutes);
 app.use("/api/users", userRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 20352;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

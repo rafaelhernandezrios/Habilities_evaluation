@@ -56,49 +56,48 @@ export const evaluateMultipleIntelligences = (responses) => {
     return { totalScore, results };
   };
   
-export const evaluateSoftSkills = (responses) => {
+  export const evaluateSoftSkills = (responses) => {
     const competencies = {
-      "Pensamiento Analítico": [1, 21, 41, 61, 81, 101, 121, 141],
-      "Respuesta ante los problemas": [2, 22, 42, 62, 82, 102, 122, 142],
-      "Iniciativa": [3, 23, 43, 63, 83, 103, 123, 143],
-      "Autodominio": [4, 24, 44, 64, 84, 104, 124, 144],
-      "Afrontamiento al estrés": [5, 25, 45, 65, 85, 105, 125, 145],
-      "Socialización": [6, 26, 46, 66, 86, 106, 126, 146],
-      "Contribución": [7, 27, 47, 67, 87, 107, 127, 147],
-      "Habilidad verbal": [8, 28, 48, 68, 88, 108, 128, 148],
-      "Principios morales": [9, 29, 49, 69, 89, 109, 129, 149],
-      "Compromiso": [10, 30, 50, 70, 90, 110, 130, 150],
+        "Pensamiento Analítico": [1, 21, 41, 61, 81, 101, 121, 141],
+        "Respuesta ante los problemas": [2, 22, 42, 62, 82, 102, 122, 142],
+        "Iniciativa": [3, 23, 43, 63, 83, 103, 123, 143],
+        "Autodominio": [4, 24, 44, 64, 84, 104, 124, 144],
+        "Afrontamiento al estrés": [5, 25, 45, 65, 85, 105, 125, 145],
+        "Socialización": [6, 26, 46, 66, 86, 106, 126, 146],
+        "Contribución": [7, 27, 47, 67, 87, 107, 127, 147],
+        "Habilidad verbal": [8, 28, 48, 68, 88, 108, 128, 148],
+        "Principios morales": [9, 29, 49, 69, 89, 109, 129, 149],
+        "Compromiso": [10, 30, 50, 70, 90, 110, 130, 150],
     };
-  
+
     const scoreLevels = {
-      "Nivel muy bajo": [0, 78],
-      "Nivel bajo": [79, 85],
-      "Nivel medio": [86, 105],
-      "Nivel alto": [106, 115],
-      "Nivel muy alto": [116, 120],
+        "Nivel muy bajo": [8, 19],
+        "Nivel bajo": [20, 25],
+        "Nivel medio": [26, 30],
+        "Nivel alto": [31, 35],
+        "Nivel muy alto": [36, 40],
     };
-  
+
     let results = {};
     let totalScore = 0;
-  
+
     for (const [competency, questionNumbers] of Object.entries(competencies)) {
-      let sum = questionNumbers.reduce((acc, qNum) => acc + (responses[qNum] || 0), 0);
-      totalScore += sum;
-  
-      // Asignar nivel de competencia basado en los puntajes
-      let level = "Nivel muy bajo";
-      for (const [levelName, range] of Object.entries(scoreLevels)) {
-        if (sum >= range[0] && sum <= range[1]) {
-          level = levelName;
-          break;
+        let sum = questionNumbers.reduce((acc, qNum) => acc + (responses[qNum] || 1), 0); // Asumimos 1 si no hay respuesta
+        totalScore += sum;
+
+        let level = "Nivel muy bajo";
+        for (const [levelName, range] of Object.entries(scoreLevels)) {
+            if (sum >= range[0] && sum <= range[1]) {
+                level = levelName;
+                break;
+            }
         }
-      }
-  
-      results[competency] = { score: sum, level };
+
+        results[competency] = { score: sum, level };
     }
-  
+
     return { totalScore, results };
-  };
+};
   
 /**
  * Analyze CV text using OpenAI GPT, extracting hard/soft skills and experience.
