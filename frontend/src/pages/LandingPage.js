@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/LandingPage.css"; // Archivo de estilos personalizados
 import logo from "../assets/logo1.png"; // Imagen del logo
-import background from "../assets/ipn2.jpeg"; // Imagen de fondo
+import background from "../assets/ipn3.jpeg"; // Imagen de fondo
 
 const LandingPage = () => {
   return (
@@ -13,7 +13,7 @@ const LandingPage = () => {
         <div className="container-fluid">
           <img src={logo} alt="Logo Habilities" width="150" height="150" />
           <a className="navbar-brand h1 text_format" href="#" style={{ color: "#333" }}>
-            Plataforma de Gestión y Evaluación de Habilidades
+          Plataforma inteligente MIRAI para la detección de talento
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span className="navbar-toggler-icon"></span>

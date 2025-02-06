@@ -11,7 +11,7 @@
   }
   
   .bg-cherry {
-    background-color: #5b0d1f;
+    background-color: #0d535b;
   }
   
   .bg-gray {
@@ -24,7 +24,7 @@
   }
   
   .button {
-    background-color: #6c1c2b;
+    background-color: #0d535b;
     color: white;
     border: none;
     padding: 12px 30px;
@@ -36,7 +36,7 @@
   }
   
   .button:hover {
-    background-color: #ab3d4c;
+    background-color: #0d535b;
   }
   
   @media (max-width: 768px) {
@@ -54,7 +54,7 @@
     }
   }
   .custom-btn {
-    background-color: #6c1c2b; /* Color de los botones actuales */
+    background-color: #0d535b; /* Color de los botones actuales */
     color: white;
     border: none;
     padding: 12px 30px;
@@ -67,7 +67,7 @@
   }
   
   .custom-btn:hover {
-    background-color: #ab3d4c; /* Cambio de color al pasar el mouse */
+    background-color: #0d535b; /* Cambio de color al pasar el mouse */
   }
   /* Fondo semitransparente sobre la imagen */
 .overlay {
@@ -105,9 +105,9 @@
   }
   
   .custom-btn {
-    background-color: #5b0d1f; /* Color guinda */
+    background-color: #0d535b; /* Color guinda */
     color: white;
-    border: 2px solid #8a172f; /* Borde elegante */
+    border: 2px solid #0d535b; /* Borde elegante */
     padding: 12px 40px;
     border-radius: 8px;
     font-size: 1.2rem;
@@ -120,7 +120,8 @@
   }
   
   .custom-btn:hover {
-    background-color: #8a172f;
+    background-color: #32178a;
+    color: white;
     border-color: #5b0d1f;
     transform: scale(1.05);
   }
