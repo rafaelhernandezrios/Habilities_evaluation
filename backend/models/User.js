@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     student_id: { type: String, required: true },
     semester: { type: String, required: true },
     program: { type: String, required: true },
-    cvPath: { type: String },
+    cvPath: { type: String, default: "" },
     cvFile: { type: Buffer },
     cvText: { type: String },
     analysis: { type: String },
@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema(
     softSkillsSurveyCompleted: { type: Boolean, default: false },
     hardSkillsSurveyCompleted: { type: Boolean, default: false },
     softSkillsResults: { type: Object, default: {} }, // 🆕 Guardar la evaluación de habilidades blandas
+    hardSkillsResults: { type: Object, default: {} }, // 🆕 Guardar la evaluación de habilidades duras
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }

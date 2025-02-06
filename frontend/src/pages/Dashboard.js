@@ -91,12 +91,40 @@ const Dashboard = () => {
             {!status.cvAnalyzed && <a href="/analyze-cv" className="btn btn-info w-100">Analizar CV y generar Entrevista</a>}
 
             {/* Estado de la Encuesta de Habilidades Blandas */}
-            <p><strong>Encuesta de Habilidades Blandas:</strong> {status.softSkillsSurvey ? "✅ Completada" : "❌ No completada"}</p>
-            {!status.softSkillsSurvey && <a href="/soft-skills" className="btn btn-success w-100">Completar Encuesta</a>}
+            <p>
+              <strong>Encuesta de Habilidades Blandas:</strong>{" "}
+              {status.softSkillsSurvey ? "✅ Completada" : "❌ No completada"}
+            </p>
+
+            {status.softSkillsSurvey ? (
+              // Si está completada, muestro un link a la página de resultados
+              <a href="/soft-skills-results" className="btn btn-secondary w-100">
+                Ver Resultados
+              </a>
+            ) : (
+              // Si NO está completada, muestro el link para completarla
+              <a href="/soft-skills" className="btn btn-success w-100">
+                Completar Encuesta
+              </a>
+            )}
 
             {/* Estado de la Encuesta de Habilidades Duras */}
-            <p><strong>Encuesta de Habilidades Duras:</strong> {status.hardSkillsSurvey ? "✅ Completada" : "❌ No completada"}</p>
-            {!status.hardSkillsSurvey && <a href="/hard-skills" className="btn btn-success w-100">Completar Encuesta</a>}
+            <p>
+              <strong>Encuesta de Inteligencias Multiples:</strong>{" "}
+              {status.hardSkillsSurvey ? "✅ Completada" : "❌ No completada"}
+            </p>
+
+            {status.hardSkillsSurvey ? (
+              // Si está completada, muestro un link a la página de resultados
+              <a href="/hard-skills-results" className="btn btn-secondary w-100">
+                Ver Resultados
+              </a>
+            ) : (
+              // Si NO está completada, muestro el link para completarla
+              <a href="/hard-skills" className="btn btn-success w-100">
+                Completar Encuesta
+              </a>
+            )}
           </div>
         ) : (
           <p className="text-muted">Cargando datos...</p>

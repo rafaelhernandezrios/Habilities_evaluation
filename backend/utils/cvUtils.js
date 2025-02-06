@@ -17,6 +17,45 @@ export async function extractTextFromPdf(pdfPath) {
   const data = await pdf(pdfBuffer);
   return data.text.trim();
 }
+export const evaluateMultipleIntelligences = (responses) => {
+    const intelligences = {
+      "Inteligencia Comunicativa": [9, 10, 17, 22, 30],
+      "Inteligencia Matemática": [5, 7, 15, 20, 25],
+      "Inteligencia Visual": [1, 11, 14, 23, 27],
+      "Inteligencia Motriz": [8, 16, 19, 21, 29],
+      "Inteligencia Rítmica": [3, 4, 13, 24, 28],
+      "Inteligencia de Autoconocimiento": [2, 6, 26, 31, 33],
+      "Inteligencia Social": [12, 18, 32, 34, 35],
+    };
+  
+    const scoreLevels = {
+      "Nivel bajo": [2, 2],   // 2 respuestas verdaderas
+      "Nivel medio": [3, 3],  // 3 respuestas verdaderas
+      "Nivel alto": [4, 5],   // 4 o más respuestas verdaderas
+    };
+  
+    let results = {};
+    let totalScore = 0;
+  
+    for (const [intelligence, questionNumbers] of Object.entries(intelligences)) {
+      let countTrue = questionNumbers.filter((qNum) => responses[qNum] === "5").length;
+      totalScore += countTrue * 5;
+  
+      // Asignar nivel según cantidad de respuestas "Verdadero"
+      let level = "Nivel bajo";
+      for (const [levelName, range] of Object.entries(scoreLevels)) {
+        if (countTrue >= range[0] && countTrue <= range[1]) {
+          level = levelName;
+          break;
+        }
+      }
+  
+      results[intelligence] = { score: countTrue * 5, level };
+    }
+  
+    return { totalScore, results };
+  };
+  
 export const evaluateSoftSkills = (responses) => {
     const competencies = {
       "Pensamiento Analítico": [1, 21, 41, 61, 81, 101, 121, 141],
@@ -65,19 +104,36 @@ export const evaluateSoftSkills = (responses) => {
  * Analyze CV text using OpenAI GPT, extracting hard/soft skills and experience.
  */
 export async function analyzeCvText(text) {
-  // Replace "gpt-4o-mini" with a valid model, e.g. "gpt-4" or "gpt-3.5-turbo"
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini", 
-    messages: [
-      { role: "system", content: "Eres un experto en análisis de currículums." },
-      { role: "user", content: `Extrae las habilidades duras y blandas así como la experiencia más relevantes del siguiente texto de un CV:\n\n${text}` },
-    ],
-    max_tokens: 300,
-    temperature: 0.7,
-  });
-
-  return response.choices[0].message.content.trim();
-}
+    try {
+      console.log("Enviando texto del CV a OpenAI...");
+  
+      // Reemplaza "gpt-4o-mini" con un modelo más estable si es necesario
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini", // Alternativa: "gpt-3.5-turbo"
+        messages: [
+          { role: "system", content: "Eres un experto en análisis de currículums." },
+          { role: "user", content: `Extrae las habilidades duras y blandas así como la experiencia más relevantes del siguiente CV:\n\n${text}` },
+        ],
+        max_tokens: 500,
+        temperature: 0.7,
+      });
+  
+      // Verificar si la respuesta es válida
+      if (!response || !response.choices || !response.choices[0].message) {
+        throw new Error("Respuesta inesperada de OpenAI");
+      }
+  
+      const extractedText = response.choices[0].message.content.trim();
+  
+      console.log("Resultado de OpenAI:", extractedText);
+  
+      return extractedText;
+    } catch (error) {
+      console.error("Error en analyzeCvText:", error);
+      return "Error en el análisis del CV.";
+    }
+  }
+  
 
 /**
  * Generate 3 hard-skill questions and 2 soft-skill questions.

@@ -11,18 +11,43 @@ const HardSkills = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar preguntas desde la API o una fuente de datos (por ahora estática)
+    // Cargar preguntas del cuestionario de inteligencias múltiples
     setQuestions([
-      "¿Dominas algún lenguaje de programación?",
-      "¿Tienes experiencia en análisis de datos?",
-      "¿Has trabajado con bases de datos?",
-      "¿Posees certificaciones en tu área de especialización?",
-      "¿Sabes utilizar herramientas de desarrollo de software?",
-      "¿Has trabajado en proyectos de inteligencia artificial?",
-      "¿Tienes experiencia en desarrollo web?",
-      "¿Has utilizado control de versiones como Git?",
-      "¿Manejas sistemas operativos basados en Linux?",
-      "¿Tienes conocimientos en ciberseguridad?"
+      "Si me preguntan cómo llegar a una ubicación, prefiero hacer un croquis que explicarlo verbalmente.",
+      "Cuando me siento molesto(a) o feliz, sé exactamente el motivo.",
+      "Canto, toco o alguna vez he tocado algún instrumento musical.",
+      "La música me ayuda a identificar mis emociones.",
+      "Tengo facilidad para hacer cálculos aritméticos de forma mental y con rapidez.",
+      "Soy capaz de ayudar a mis compañeros(as) a manejar sus emociones, porque he vivido situaciones similares.",
+      "Prefiero realizar operaciones matemáticas empleando la calculadora que mentalmente.",
+      "Se me facilita aprender nuevos pasos de baile.",
+      "Expreso lo que pienso con facilidad cuando platico con mis compañeros(as).",
+      "Gozo cuando participo en una buena conversación.",
+      "Tengo buen sentido de orientación espacial (norte, sur, este, oeste).",
+      "Disfruto reunir a mis amigos(as) en fiestas y eventos.",
+      "Necesito escuchar música para sentirme bien.",
+      "Se me facilita entender instructivos y diagramas.",
+      "Me gustan los juegos de destreza, crucigramas y videojuegos.",
+      "Se me facilita aprender actividades físicas que requieren destreza como andar en patineta, bicicleta, etc.",
+      "Me molesto cuando mis compañeros(as) dicen palabras sin sentido.",
+      "Tengo capacidad de persuadir a mis compañeros(as) para que sigan mis ideas.",
+      "Se me facilitan los bailes que requieren de coordinación y equilibrio.",
+      "Soy hábil para identificar secuencias numéricas (1,2,4,8, __,32).",
+      "Se me facilita realizar trabajos de construcción como maquetas, esculturas, etc.",
+      "Tengo talento para identificar el significado de las palabras.",
+      "Tengo facilidad de girar mentalmente un objeto.",
+      "Hay canciones o música que me recuerdan acontecimientos importantes de mi vida.",
+      "Me gusta trabajar con cálculos, números y figuras geométricas.",
+      "Disfruto del silencio porque me permite meditar sobre cómo me siento.",
+      "Mirar construcciones nuevas me da una sensación de bienestar.",
+      "Cuando estoy relajado(a) me gusta cantar o tocar algún instrumento.",
+      "Soy hábil en los deportes de rendimiento.",
+      "Me gusta tomar nota en mis clases.",
+      "Regularmente identifico las señales y expresiones de mi rostro.",
+      "Al observar el rostro de mis compañeros(as), fácilmente identifico su estado de ánimo.",
+      "Me resulta fácil identificar mis sentimientos y emociones.",
+      "Reconozco fácilmente los estados de ánimo de mis compañeros(as).",
+      "Me doy cuenta fácilmente de lo que piensan mis compañeros(as) de mí."
     ]);
   }, []);
 
@@ -60,7 +85,7 @@ const HardSkills = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/surveys/hard-skills",
+        "http://localhost:5000/api/users/submit-hard-skills",
         { responses },
         { headers: { Authorization: token } }
       );
@@ -77,9 +102,10 @@ const HardSkills = () => {
     }
   };
   
+
   return (
     <div className="hardskills-container">
-      <h2 className="text-center hardskills-title">Encuesta de Habilidades Duras</h2>
+      <h2 className="text-center hardskills-title">Cuestionario de Inteligencias Múltiples</h2>
 
       {/* Barra de Progreso */}
       <div className="progress-container">
@@ -94,24 +120,23 @@ const HardSkills = () => {
               <label>{question}</label>
               <div className="options">
                 <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="1" onChange={(e) => handleChange(e, index + currentStep * 5)} required />
-                  Rara vez o nunca
+                  <input
+                    type="radio"
+                    name={`q${index + currentStep * 5}`}
+                    value="1"
+                    onChange={(e) => handleChange(e, index + currentStep * 5)}
+                    required
+                  />
+                  Falso
                 </label>
                 <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="2" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Pocas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="3" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Algunas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="4" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Muchas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="5" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Muy frecuentemente o siempre
+                  <input
+                    type="radio"
+                    name={`q${index + currentStep * 5}`}
+                    value="5"
+                    onChange={(e) => handleChange(e, index + currentStep * 5)}
+                  />
+                  Verdadero
                 </label>
               </div>
             </div>

@@ -1,0 +1,93 @@
+/* Contenedor principal que ocupa toda la pantalla */
+.results-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Fondo claro */
+  }
+  
+  /* Card central para mostrar resultados */
+  .results-card {
+    width: 600px; /* Ajusta el ancho según prefieras */
+    padding: 30px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Título principal */
+  .results-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5b0d1f; /* Color guinda */
+    margin-bottom: 20px;
+  }
+  
+  /* Lista de resultados */
+  .results-list {
+    list-style: none;
+    padding-left: 0;
+    text-align: left; /* Alinea el texto a la izquierda para ver mejor cada item */
+    margin: 20px 0;
+  }
+  
+  /* Cada elemento de la lista */
+  .results-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.4;
+  }
+  
+  /* Resalta el nombre de la habilidad con el color guinda */
+  .results-skill-name {
+    font-weight: bold;
+    color: #5b0d1f;
+  }
+  
+  /* Si quieres estilos para los puntajes o niveles, usa una clase similar */
+  .results-skill-score {
+    font-weight: normal;
+    color: #333; /* Gris oscuro */
+    margin-left: 5px;
+  }
+  
+  /* Botón de "Regresar" u otros botones, si los incluyes */
+  .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #5b0d1f;
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #8a172f;
+  }
+  
+  /* Si quieres estilos secundarios o de alerta, repítelos */
+  .btn-secondary {
+    background-color: #d3d3d3;
+    color: black;
+  }
+  
+  .btn-danger {
+    background-color: #ab3d4c;
+    border: none;
+    color: #fff;
+  }
+  .btn-danger:hover {
+    background-color: #8a172f;
+  }
+  

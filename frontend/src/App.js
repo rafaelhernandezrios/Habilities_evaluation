@@ -9,7 +9,8 @@ import SoftSkills from './pages/SoftSkills';
 import HardSkills from './pages/HardSkills';
 import AnalyzeCV from './pages/AnalyzeCV'; 
 import PrivateRoute from './components/PrivateRoute';
-
+import SoftSkillsResults from './pages/SoftSkillsResults';
+import HardSkillsResults from './pages/HardSkillsResults';
 function App() {
   return (
     <Router>
@@ -49,7 +50,23 @@ function App() {
             </PrivateRoute>
           }
          />
-      </Routes>
+         <Route
+          path="/soft-skills-results"
+          element={
+            <PrivateRoute>
+              <SoftSkillsResults />
+            </PrivateRoute>
+          }
+         />
+         <Route
+          path="/hard-skills-results"
+          element={
+            <PrivateRoute>
+              <HardSkillsResults />
+            </PrivateRoute>
+          }
+         />
+        </Routes>
     </Router>
   );
 }

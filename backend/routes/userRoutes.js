@@ -15,6 +15,7 @@ import {
   analyzeCvText,
   generateQuestions,
   evaluateSoftSkills,
+  evaluateMultipleIntelligences,
   calculateScore,
   calculateScoreBasedOnAnswers,
 } from "../utils/cvUtils.js"; // Adjust the import path as needed
@@ -29,47 +30,45 @@ const __dirname = path.dirname(__filename);
 //--------------------------------------//
 // Upload CV (Protected) to Disk        //
 //--------------------------------------//
+// Ruta para subir CV
 router.post("/upload-cv", authMiddleware, upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
+      console.error("❌ No se recibió el archivo.");
+      return res.status(400).json({ message: "No se ha subido ningún archivo" });
     }
 
-    // Find the user
+    console.log("✅ Archivo recibido:", req.file);
+
+    // Buscar el usuario en la base de datos
     const user = await User.findById(req.userId);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    // Ensure the uploads directory exists
-    const uploadsDir = path.join(__dirname, "..", "..", "uploads");
-    // Example: go two dirs up from this file, then "uploads"
-
-    try {
-      await fsPromises.access(uploadsDir);
-    } catch (err) {
-      // Directory doesn't exist, create it
-      await fsPromises.mkdir(uploadsDir, { recursive: true });
+    // Crear carpeta si no existe
+    const uploadsDir = path.join(process.cwd(), "uploads");
+    if (!fs.existsSync(uploadsDir)) {
+      await fs.mkdir(uploadsDir, { recursive: true });
     }
 
-    // Build the absolute path for saving the file
-    const filename = req.file.originalname;
-    const fullPath = path.join(uploadsDir, filename);
+    // Guardar el archivo en disco
+    //const filename = `cv_${user._id}.pdf`;
+    //const filePath = path.join(uploadsDir, filename);
+    user.cvPath = req.file.path;; // o `path.join("uploads", req.file.filename)`
 
-    // Write the PDF buffer to disk
-    await fsPromises.writeFile(fullPath, req.file.buffer);
+    
 
-    // Store the absolute path in the user's document
-    user.cvPath = fullPath;
+    // Guardar en la base de datos
+    //user.cvPath = filePath;
     await user.save();
-
-    res.status(200).json({
-      message: "CV uploaded and saved to disk successfully",
-      filePath: fullPath,
+    return res.status(200).json({
+      message: "CV subido correctamente",
+      filePath: user.cvPath,
     });
   } catch (error) {
-    console.error("Error uploading file:", error);
-    res.status(500).json({ message: "Error uploading the file", error });
+    console.error("❌ Error al subir el archivo:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 });
 
@@ -253,6 +252,39 @@ router.post("/submit-soft-skills", authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error("Error al procesar la encuesta:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+router.post("/submit-hard-skills", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    const { responses } = req.body;
+
+    if (!responses) {
+      return res.status(400).json({ message: "No se enviaron respuestas" });
+    }
+
+    // Evaluar inteligencias múltiples
+    const evaluation = evaluateMultipleIntelligences(responses);
+
+    // Guardar en la base de datos
+    user.hardSkillsResults = evaluation.results;
+    user.score = evaluation.totalScore;
+    user.hardSkillsSurveyCompleted = true;
+
+    await user.save();
+
+    res.json({
+      message: "Cuestionario de inteligencias múltiples guardado exitosamente",
+      results: evaluation.results,
+      totalScore: evaluation.totalScore,
+    });
+  } catch (error) {
+    console.error("Error al procesar el cuestionario:", error);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });
