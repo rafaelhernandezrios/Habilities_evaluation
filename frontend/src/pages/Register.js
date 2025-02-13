@@ -46,7 +46,7 @@ const Register = () => {
     }
     
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, form);
+      await axios.post(`http://14.10.2.192:20352/api/auth/register`, form);
       setMessage("Usuario registrado con éxito. Redirigiendo...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {

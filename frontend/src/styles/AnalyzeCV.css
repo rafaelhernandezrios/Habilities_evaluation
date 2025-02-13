@@ -1,0 +1,343 @@
+.analyze-container {
+  text-align: center;
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1); /* Glassmorphism */
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 50px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.analyze-container:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  color: #211111;
+  font-weight: 600;
+  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* 🎤 Avatar Moderno */
+.avatar {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #007bff, #0056b3);
+  border-radius: 50%;
+  margin: 20px auto;
+  box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.speaking {
+  animation: speakAnimation 0.6s infinite alternate, glow 1s infinite alternate;
+}
+
+/* Efecto de crecimiento */
+@keyframes speakAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* Efecto de brillo cuando habla */
+@keyframes glow {
+  0% {
+    box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0px 0px 30px rgba(0, 123, 255, 0.8);
+  }
+}
+
+.question-container {
+  margin-top: 20px;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #230d0d;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  backdrop-filter: blur(5px);
+  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+}
+
+.answer-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #0f0909;
+  backdrop-filter: blur(5px);
+  transition: 0.3s ease-in-out;
+}
+
+.answer-input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-top: 15px;
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #0056b3, #003d80);
+  transform: scale(1.05);
+}
+.analyze-container {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphism */
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 50px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .analyze-container:hover {
+    transform: scale(1.02);
+  }
+  
+  h2 {
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 🎤 Avatar Moderno */
+  .avatar {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #007bff, #0056b3);
+    border-radius: 50%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .speaking {
+    animation: speakAnimation 0.6s infinite alternate, glow 1s infinite alternate;
+  }
+  
+  /* Efecto de crecimiento */
+  @keyframes speakAnimation {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  
+  /* Efecto de brillo cuando habla */
+  @keyframes glow {
+    0% {
+      box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+    }
+    100% {
+      box-shadow: 0px 0px 30px rgba(0, 123, 255, 0.8);
+    }
+  }
+  
+  .question-container {
+    margin-top: 20px;
+  }
+  
+  .question-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(5px);
+    text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  .answer-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease-in-out;
+  }
+  
+  .answer-input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-top: 15px;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #003d80);
+    transform: scale(1.05);
+  }
+  
+  .analyze-container {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphism */
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 50px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .analyze-container:hover {
+    transform: scale(1.02);
+  }
+  
+  h2 {
+    color: #070606;
+    font-weight: 600;
+    text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 🎤 Avatar Moderno */
+  .avatar {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #007bff, #0056b3);
+    border-radius: 50%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .speaking {
+    animation: speakAnimation 0.6s infinite alternate, glow 1s infinite alternate;
+  }
+  
+  /* Efecto de crecimiento */
+  @keyframes speakAnimation {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  
+  /* Efecto de brillo cuando habla */
+  @keyframes glow {
+    0% {
+      box-shadow: 0px 0px 20px rgba(0, 123, 255, 0.5);
+    }
+    100% {
+      box-shadow: 0px 0px 30px rgba(0, 123, 255, 0.8);
+    }
+  }
+  
+  .question-container {
+    margin-top: 20px;
+  }
+  
+  .question-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #070707;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(5px);
+    text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  .answer-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid rgba(4, 3, 3, 0.3);
+    border-radius: 8px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #110e0e;
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease-in-out;
+  }
+  
+  .answer-input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-top: 15px;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #003d80);
+    transform: scale(1.05);
+  }
+  
+  /* Fondo general de la página */
+  body {
+    background: linear-gradient(135deg, #fbfbfb, #c9d6fb);
+    color: white;
+    font-family: "Arial", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
