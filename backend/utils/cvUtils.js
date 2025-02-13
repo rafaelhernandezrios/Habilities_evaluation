@@ -165,22 +165,31 @@ export async function generateQuestions(skills) {
 
   // Build a prompt to generate exactly 5 questions
   const prompt = `
-A continuación, se proporcionan habilidades duras y blandas.
-Genera 3 preguntas específicas para las habilidades duras y 2 preguntas específicas para las blandas.
-Proporciona exactamente 5 preguntas numeradas, sin texto adicional.
+Basado en las siguientes habilidades extraídas del CV, genera 5 preguntas de entrevista:
+- 5 preguntas sobre habilidades duras.
+- 5 preguntas sobre habilidades blandas.
 
-Habilidades duras:
-${hard_skills.join(", ")}
+Habilidades encontradas en el CV:
+${skills.join(", ")}
 
-Habilidades blandas:
-${soft_skills.join(", ")}
+Unicamente responde en el siguiente formato, sin agregar nada mas:
+1. Pregunta sobre habilidad dura
+2. Pregunta sobre habilidad dura
+3. Pregunta sobre habilidad dura
+4. Pregunta sobre habilidad dura
+5. Pregunta sobre habilidad dura
+6. Pregunta sobre habilidad blanda
+7. Pregunta sobre habilidad blanda
+8. Pregunta sobre habilidad blanda
+9. Pregunta sobre habilidad blanda
+10. Pregunta sobre habilidad blanda
 `;
 
   // Call GPT
   const response = await openai.chat.completions.create({
     model: "gpt-4o-mini", // Or "gpt-3.5-turbo"
     messages: [{ role: "user", content: prompt }],
-    max_tokens: 300,
+    max_tokens: 500,
     temperature: 0.7,
   });
 
@@ -191,12 +200,12 @@ ${soft_skills.join(", ")}
     .filter(Boolean);
 
   // If fewer than 5 lines, pad with placeholders
-  while (questions.length < 5) {
+  while (questions.length < 10) {
     questions.push(`${questions.length + 1}. Pregunta genérica de ejemplo.`);
   }
 
   // Return only 5 lines
-  return questions.slice(0, 5);
+  return questions.slice(0, 10);
 }
 
 /**
@@ -226,62 +235,60 @@ export function calculateScore(skills) {
 /**
  * Calculates a score based on user's interview answers, returning a final score & explanations.
  */
-export function calculateScoreBasedOnAnswers(questions, answers) {
-  // Hard-coded skill keywords
-  const skillKeywords = {
-    hard_skills: {
-      Python: ["programming", "automation", "python", "scripting"],
-      "Machine Learning": ["models", "ai", "algorithms", "deep learning", "machine learning"],
-      "Data Analysis": ["statistics", "visualization", "pandas", "data analysis"],
-    },
-    soft_skills: {
-      Communication: ["collaboration", "communication", "listening", "presentation"],
-      Teamwork: ["team", "cooperation", "leadership", "support", "helping"],
-    },
-  };
-
-  // Weights per category
-  const weights = {
-    hard_skills: 15,
-    soft_skills: 10,
-  };
-
-  let total_score = 0;
-  let explanations = [];
-  let evaluated_skills = new Set();
-
-  // Go through each Q&A
-  for (let i = 0; i < questions.length; i++) {
-    const answer = answers[i] || "";
-    const answerLower = answer.toLowerCase();
-
-    // Check each skill
-    for (const [category, skills] of Object.entries(skillKeywords)) {
-      for (const [skill, keywords] of Object.entries(skills)) {
-        // If not already counted, and at least one keyword is found in the answer
-        if (
-          !evaluated_skills.has(skill) &&
-          keywords.some(keyword => answerLower.includes(keyword))
-        ) {
-          // Add points, mark skill as used
-          total_score += weights[category];
-          evaluated_skills.add(skill);
-          explanations.push(
-            `La respuesta '${answer}' demuestra conocimiento en '${skill}' (+${weights[category]} puntos).`
-          );
-        }
-      }
+export async function calculateScoreBasedOnAnswers(questions, answers) {
+  try {
+    if (!questions || !answers || questions.length !== answers.length) {
+      throw new Error("Número de preguntas y respuestas no coincide.");
     }
+
+    console.log("Enviando respuestas a GPT para evaluación...");
+
+    // Crear el prompt para GPT
+    const prompt = `
+Eres un evaluador experto de entrevistas técnicas y de habilidades blandas. 
+Evalúa las siguientes respuestas en una escala del 0 al 100 según su calidad, claridad y relevancia para la pregunta. 
+
+Para cada respuesta, proporciona:
+1. Un puntaje entre 0 y 100.
+2. Una breve explicación de la evaluación.
+
+Aquí están las preguntas y respuestas:
+
+${questions.map((q, i) => `Pregunta: ${q}\nRespuesta: ${answers[i]}\n`).join("\n")}
+
+Responde en el siguiente formato:
+[
+  { "score": 85, "explanation": "Respuesta clara y bien fundamentada con ejemplos." },
+  { "score": 70, "explanation": "Buena respuesta pero le falta detalle." },
+  ...
+]
+    `;
+
+    // Llamada a OpenAI
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 500,
+      temperature: 0.7,
+    });
+
+    // Obtener el JSON generado por GPT
+    const evaluation = JSON.parse(response.choices[0].message.content);
+
+    // Calcular el puntaje total
+    const total_score = evaluation.reduce((acc, item) => acc + item.score, 0) / evaluation.length;
+
+    return {
+      total_score: Math.round(total_score),
+      evaluations: evaluation,
+    };
+
+  } catch (error) {
+    console.error("Error al evaluar respuestas:", error);
+    return {
+      total_score: 0,
+      evaluations: [],
+      error: "Error en la evaluación de respuestas",
+    };
   }
-
-  // Cap at 100
-  total_score = Math.min(total_score, 100);
-
-  if (total_score === 0) {
-    explanations.push("No se detectaron habilidades relevantes en las respuestas.");
-  } else {
-    explanations.push(`El puntaje total se calculó como ${total_score} sobre 100.`);
-  }
-
-  return { total_score, explanations };
 }

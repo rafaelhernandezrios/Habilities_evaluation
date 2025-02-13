@@ -15,6 +15,8 @@ const userSchema = new mongoose.Schema(
     student_id: { type: String, required: true },
     semester: { type: String, required: true },
     program: { type: String, required: true },
+    
+    // 📂 CV y análisis
     cvPath: { type: String, default: "" },
     cvFile: { type: Buffer },
     cvText: { type: String },
@@ -23,10 +25,20 @@ const userSchema = new mongoose.Schema(
     questions: { type: Array, default: [] },
     score: { type: Number, default: 0 },
     cvAnalyzed: { type: Boolean, default: false },
+
+    // 📊 Evaluaciones de habilidades
     softSkillsSurveyCompleted: { type: Boolean, default: false },
     hardSkillsSurveyCompleted: { type: Boolean, default: false },
-    softSkillsResults: { type: Object, default: {} }, // 🆕 Guardar la evaluación de habilidades blandas
-    hardSkillsResults: { type: Object, default: {} }, // 🆕 Guardar la evaluación de habilidades duras
+    softSkillsResults: { type: Object, default: {} }, // 🆕 Guardar evaluación de habilidades blandas
+    hardSkillsResults: { type: Object, default: {} }, // 🆕 Guardar evaluación de habilidades duras
+
+    // 🗣️ Evaluación de entrevista
+    interviewResponses: { type: Array, default: [] }, // 🆕 Guardar respuestas de la entrevista
+    interviewScore: { type: Number, default: 0 }, // 🆕 Puntaje de la entrevista
+    interviewAnalysis: { type: Array, default: [] }, // 🆕 Análisis detallado de las respuestas
+    interviewCompleted: { type: Boolean, default: false }, // 🆕 Indica si la entrevista ha sido completada
+
+    // 📅 Timestamp
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }

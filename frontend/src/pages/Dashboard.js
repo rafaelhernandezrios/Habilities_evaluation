@@ -22,13 +22,13 @@ const Dashboard = () => {
 
       try {
         // Obtener datos del usuario
-        const userResponse = await axios.get("http://44.226.145.213:20352/api/users/me", {
+        const userResponse = await axios.get("http://14.10.2.192:20352/api/users/me", {
           headers: { Authorization: token },
         });
         setUser(userResponse.data);
 
         // Obtener estado del usuario
-        const statusResponse = await axios.get("http://44.226.145.213:20352/api/users/status", {
+        const statusResponse = await axios.get("http://14.10.2.192:20352/api/users/status", {
           headers: { Authorization: token },
         });
         setStatus(statusResponse.data);
@@ -52,7 +52,7 @@ const Dashboard = () => {
     formData.append("file", file);
 
     try {
-      await axios.post("http://44.226.145.213:20352/api/users/upload-cv", formData, {
+      await axios.post("http://14.10.2.192:20352/api/users/upload-cv", formData, {
         headers: { "Authorization": token, "Content-Type": "multipart/form-data" },
       });
       setMessage("CV subido con éxito.");
@@ -86,9 +86,18 @@ const Dashboard = () => {
               </button>
             )}
 
-            {/* Estado de la Entrevista Personalizada (Análisis GPT) */}
-            <p><strong>Entrevista Personalizada:</strong> {status.cvAnalyzed ? "✅ Realizado" : "❌ No realizado"}</p>
-            {!status.cvAnalyzed && <a href="/analyze-cv" className="btn btn-info w-100">Analizar CV y generar Entrevista</a>}
+            {/* Estado de la Entrevista Personalizada */}
+              <p><strong>Entrevista Personalizada:</strong> {status.cvAnalyzed ? "✅ Realizado" : "❌ No realizado"}</p>
+
+              {status.cvAnalyzed ? (
+                <a href="/interview-results" className="btn btn-secondary w-100">
+                  Ver Resultados de la Entrevista
+                </a>
+              ) : (
+                <a href="/analyze-cv" className="btn btn-info w-100">
+                  Analizar CV y generar Entrevista
+                </a>
+              )}
 
             {/* Estado de la Encuesta de Habilidades Blandas */}
             <p>

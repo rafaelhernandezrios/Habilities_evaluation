@@ -55,7 +55,7 @@ router.post("/upload-cv", authMiddleware, upload.single("file"), async (req, res
     // Guardar el archivo en disco
     //const filename = `cv_${user._id}.pdf`;
     //const filePath = path.join(uploadsDir, filename);
-    user.cvPath = req.file.path;; // o `path.join("uploads", req.file.filename)`
+    user.cvPath = path.join("uploads", req.file.filename);
 
     
 
@@ -193,7 +193,7 @@ router.post("/analyze-cv", authMiddleware, async (req, res) => {
 });
 
 //-------------------------------------------//
-// Submit interview (example endpoint)       //
+// 📌 Guardar respuestas de entrevista en DB //
 //-------------------------------------------//
 router.post("/submit-interview", authMiddleware, async (req, res) => {
   try {
@@ -202,24 +202,61 @@ router.post("/submit-interview", authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    // Example of reading front-end answers:
-    // const answers = req.body.answers || [];
-    // const questions = user.questions || [];
-    //
-    // If you want to calculate a new interview score:
-    // const { total_score, explanations } = calculateScoreBasedOnAnswers(questions, answers);
-    // user.interviewScore = total_score;
-    // user.interviewExplanations = explanations;
-    // user.cvAnalyzed = true;
+    const { answers } = req.body;
 
-    // For now, just mark the interview complete
-    user.cvAnalyzed = true;
+    if (!answers || !Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ message: "No se enviaron respuestas válidas" });
+    }
+
+    // Obtener preguntas del usuario
+    const questions = user.questions || [];
+    if (questions.length !== answers.length) {
+      return res.status(400).json({ message: "Número de respuestas no coincide con las preguntas." });
+    }
+
+    // Evaluar respuestas usando GPT
+    const { total_score, evaluations } = await calculateScoreBasedOnAnswers(questions, answers);
+
+    // Guardar evaluación en la base de datos del usuario
+    user.interviewResponses = answers; // 🆕 Guardamos las respuestas del usuario
+    user.interviewScore = total_score;
+    user.interviewAnalysis = evaluations;
+    user.interviewCompleted = true;
+
     await user.save();
 
-    res.json({ message: "Entrevista completada" });
+    return res.json({
+      message: "Entrevista evaluada y almacenada con éxito",
+      total_score,
+      evaluations,
+    });
+
   } catch (error) {
-    console.error("Error saving interview:", error);
-    res.status(500).json({ message: "Error al guardar respuestas", error });
+    console.error("Error al procesar la entrevista:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+
+//-------------------------------------------//
+// 📌 Obtener respuestas de entrevista       //
+//-------------------------------------------//
+router.get("/interview-responses", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user || !user.interviewResponses) {
+      return res.status(404).json({ message: "No hay respuestas almacenadas." });
+    }
+
+    return res.json({
+      questions: user.questions,
+      responses: user.interviewResponses,
+      analysis: user.interviewAnalysis,
+      score: user.interviewScore,
+    });
+
+  } catch (error) {
+    console.error("Error al obtener respuestas de entrevista:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 });
 router.post("/submit-soft-skills", authMiddleware, async (req, res) => {

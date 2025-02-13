@@ -1,132 +1,166 @@
+/* Estilos Generales */
+body {
+  font-family: 'Arial', sans-serif;
+  padding-top: 180px; /* Ajuste para que el navbar no cubra contenido */
+}
+
+/* Navbar */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f8c471 !important;
+}
+
+/* Hero Section */
+.hero-section {
+  background-size: cover;
+  background-position: center;
+  padding: 250px 20px;
+  text-align: center;
+  color: black;
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Caja de Propósito con Fondo */
+.purpose-box {
+  background: rgba(24, 122, 161, 0.85);
+  padding: 40px;
+  border-radius: 10px;
+  display: inline-block;
+  max-width: 800px;
+  text-align: center;
+  color: black;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: rgba(243, 240, 240, 0.909);
+}
+
+/* Sección de Objetivos */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    background-size: cover;
-    background-position: center;
-    padding: 50px;
-    border-radius: 10px;
+  max-width: 1200px;
+}
+
+.icon-feature {
+  font-size: 2.5rem;
+  color: #0d535b;
+  margin-bottom: 15px;
+}
+
+h4 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Botón CTA */
+.btn-primary {
+  background-color: #0d535b;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #083a44;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .hero-section {
+      padding: 80px 10px;
   }
-  
-  .bg-cherry {
-    background-color: #0d535b;
+
+  .hero-section h1 {
+      font-size: 2.2rem;
   }
-  
-  .bg-gray {
-    background-color: #D3D3D3;
+
+  .hero-section p {
+      font-size: 1.1rem;
   }
-  
-  .text_format {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .button {
-    background-color: #0d535b;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-  }
-  
-  .button:hover {
-    background-color: #0d535b;
-  }
-  
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-  
-    h1 {
-      font-size: 1.8rem;
-    }
-  
-    .button {
-      width: 100%;
+
+  .purpose-box {
       padding: 15px;
-    }
+      max-width: 90%;
   }
-  .custom-btn {
-    background-color: #0d535b; /* Color de los botones actuales */
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    text-decoration: none;
+
+  .icon-feature {
+      font-size: 2rem;
   }
-  
-  .custom-btn:hover {
-    background-color: #0d535b; /* Cambio de color al pasar el mouse */
+
+  h4 {
+      font-size: 1.3rem;
   }
-  /* Fondo semitransparente sobre la imagen */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Negro con 50% de opacidad */
-    z-index: 1;
+
+  p {
+      font-size: 1rem;
   }
-  
-  /* Asegurar que el contenido esté encima del fondo */
-  .content-box {
-    position: relative;
-    z-index: 2;
+
+  .btn-primary {
+      font-size: 1rem;
+      padding: 12px 25px;  
   }
-  
-  /* Estilo para que las tarjetas resalten más */
-  .custom-card {
-    background: rgba(255, 255, 255, 0.9); /* Blanco con 90% de opacidad */
-    border-radius: 10px;
-    padding: 20px;
-    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .custom-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  }
-  .login-section {
-    background-color: #f8f9fa; /* Fondo claro para contraste */
-    padding: 60px 0;
-  }
-  
-  .custom-btn {
-    background-color: #0d535b; /* Color guinda */
-    color: white;
-    border: 2px solid #0d535b; /* Borde elegante */
-    padding: 12px 40px;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .custom-btn:hover {
-    background-color: #32178a;
-    color: white;
-    border-color: #5b0d1f;
-    transform: scale(1.05);
-  }
-  
-  .custom-btn i {
-    font-size: 1.5rem;
-  }
-  
+}
+.btn-custom {
+  background-color: #0d535b !important;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out;
+  color: white !important;
+}
+
+.btn-custom:hover {
+  background-color: #083a44 !important;
+}

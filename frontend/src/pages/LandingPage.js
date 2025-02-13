@@ -9,91 +9,67 @@ const LandingPage = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-2">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-3 fixed-top">
         <div className="container-fluid">
           <img src={logo} alt="Logo Habilities" width="150" height="150" />
-          <a className="navbar-brand h1 text_format" href="#" style={{ color: "#333" }}>
-          Plataforma inteligente MIRAI para la detección de talento
+          <a className="navbar-brand h1 text_format" href="#" style={{ color: "#fff" }}>
+            Plataforma Inteligente MIRAI para la Detección de Talento
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item"><a className="nav-link text_format" href="#" style={{ color: "#333" }}>Inicio</a></li>
-              <li className="nav-item"><a className="nav-link text_format" href="#" style={{ color: "#333" }}>Servicios</a></li>
-              <li className="nav-item"><a className="nav-link text_format" href="#" style={{ color: "#333" }}>Contacto</a></li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">Iniciar Sesión</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">Registrarse</Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
 
-        {/* Sección "¿Qué ofrecemos?" con Imagen de Fondo */}
-        <section
-        className="bg-cherry py-5 text-white text-center"
-        style={{
-            backgroundImage: `url(${background})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            position: "relative",
-        }}
->
-        {/* Fondo semitransparente */}
-        <div className="overlay"></div>
-
-        <div className="container content-box">
-            <h2 className="mb-4 fw-bold">¿Qué ofrecemos?</h2>
-            <div className="row">
-            <div className="col-md-4">
-                <div className="card shadow-lg custom-card">
-                <div className="card-body">
-                    <h5 className="card-title">Evaluaciones precisas</h5>
-                    <p className="card-text">Recibe retroalimentación detallada sobre tus habilidades.</p>
-                </div>
-                </div>
-            </div>
-            <div className="col-md-4">
-                <div className="card shadow-lg custom-card">
-                <div className="card-body">
-                    <h5 className="card-title">Informes personalizados</h5>
-                    <p className="card-text">Obtén recomendaciones para mejorar tus competencias.</p>
-                </div>
-                </div>
-            </div>
-            <div className="col-md-4">
-                <div className="card shadow-lg custom-card">
-                <div className="card-body">
-                    <h5 className="card-title">Plataforma intuitiva</h5>
-                    <p className="card-text">Accede a nuestras herramientas de manera fácil y rápida.</p>
-                </div>
-                </div>
-            </div>
-            </div>
+      {/* Sección de Propósito */}
+      <header className="hero-section" style={{ backgroundImage: `url(${background})` }}>
+        <div className="container text-center text-white purpose-box">
+          <h1 className="display-4">Evaluación y Orientación Académica con IA</h1>
+          <p className="lead">Brindamos a estudiantes y graduados universitarios una herramienta de evaluación y orientación basada en análisis de habilidades, inteligencia artificial y compatibilidad con programas académicos.</p>
         </div>
-        </section>
+      </header>
 
-
-
-        {/* Sección de Inicio de Sesión con Mejor Diseño */}
-        <section className="login-section text-center py-5">
-        <div className="container">
-            <h2 className="mb-3 fw-bold text-dark">Forma parte de nuestra comunidad</h2>
-            <p className="text-muted mb-4">
-            Explora nuevas oportunidades y desarrolla tus habilidades con nuestra plataforma.  
-            </p>
-            <Link to="/login" className="btn custom-btn btn-lg">
-            <i className="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-            </Link>
+      {/* Sección de Objetivos */}
+      <section className="container my-5">
+        <h2 className="text-center mb-4">🔹 Objetivos Principales</h2>
+        <div className="row text-center">
+          <div className="col-md-6 col-lg-3 mb-4">
+            <i className="bi bi-bar-chart-fill icon-feature"></i>
+            <h4>Evaluar Habilidades</h4>
+            <p>Encuestas personalizadas sobre inteligencias múltiples, habilidades blandas y duras para generar un perfil detallado del usuario.</p>
+          </div>
+          <div className="col-md-6 col-lg-3 mb-4">
+            <i className="bi bi-file-earmark-text icon-feature"></i>
+            <h4>Crear un CV con IA</h4>
+            <p>Permite subir un CV y generar un análisis automático, asistiendo en la creación de un CV optimizado.</p>
+          </div>
+          <div className="col-md-6 col-lg-3 mb-4">
+            <i className="bi bi-mortarboard icon-feature"></i>
+            <h4>Match con Universidades</h4>
+            <p>Conecta a los usuarios con universidades, maestrías y doctorados adecuados según su perfil.</p>
+          </div>
+          <div className="col-md-6 col-lg-3 mb-4">
+            <i className="bi bi-globe icon-feature"></i>
+            <h4>Plataforma Escalable</h4>
+            <p>Integración con otras plataformas educativas y acceso a perfiles por instituciones.</p>
+          </div>
         </div>
-        </section>
+      </section>
 
-
-
-      {/* Footer */}
-      <footer className="bg-dark text-white text-center py-2">
-        <p>© 2025 Mirai Innovation. Todos los derechos reservados.</p>
-      </footer>
+      {/* Sección de CTA */}
+      <div className="text-center my-5">
+        <Link to="/register" className="btn btn-custom btn-lg">Regístrate Ahora</Link>
+      </div>
     </div>
   );
 };

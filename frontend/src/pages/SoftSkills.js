@@ -99,7 +99,7 @@ const SoftSkills = () => {
   
     try {
       const response = await axios.post(
-        "http://44.226.145.213:20352/api/users/submit-soft-skills",
+        "http://14.10.2.192:20352/api/users/submit-soft-skills",
         { responses },
         { headers: { Authorization: token } }
       );

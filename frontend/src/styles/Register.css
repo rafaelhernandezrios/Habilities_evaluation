@@ -1,3 +1,28 @@
+/* Navbar */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #f8c471 !important;
+}
 /* Estilo para el contenedor principal del registro */
 .register-container {
   display: flex;
@@ -23,7 +48,7 @@
 .register-title {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #5b0d1f; /* Color guinda */
+  color: #0d3c5b; /* Color guinda */
   margin-bottom: 20px; /* Añade espacio debajo del título */
 }
 
@@ -58,7 +83,7 @@
 
 /* Efecto hover para el botón de registro */
 .btn-register:hover {
-  background-color: #8a172f; /* Color guinda más oscuro */
+  background-color: #174d8a; /* Color guinda más oscuro */
 }
 
 /* Estilo para el mensaje de registro */
@@ -75,7 +100,7 @@
 
 /* Estilo para los enlaces en el pie de página */
 .register-footer a {
-  color: #5b0d1f;
+  color: #0d2e5b;
   font-weight: bold;
   text-decoration: none;
 }
