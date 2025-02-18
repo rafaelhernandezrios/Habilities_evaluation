@@ -1,93 +1,172 @@
-/* Contenedor principal que ocupa toda la pantalla */
-.results-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f8f9fa; /* Fondo claro */
+/* Importar los estilos base del Dashboard */
+@import './Dashboard.css';
+
+/* Estilos específicos para HardSkillsResults */
+.intelligence-summary {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+
+.intelligence-chart {
+  margin-top: 2rem;
+}
+
+.chart-bar {
+  margin-bottom: 1.5rem;
+}
+
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #0d535b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.level-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.bar-container {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  height: 35px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bar-fill {
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-weight: 600;
+  transition: all 0.5s ease;
+}
+
+/* Detalles de inteligencias */
+.intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.intelligence-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.intelligence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.level-indicator {
+  font-weight: bold;
+}
+
+.level-bar {
+  height: 8px;
+  background-color: #eee;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.level-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.level-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.intelligence-header h4 {
+  color: #0d535b;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.intelligence-description {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Animaciones */
+.intelligence-card, .intelligence-summary {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  /* Card central para mostrar resultados */
-  .results-card {
-    width: 600px; /* Ajusta el ancho según prefieras */
-    padding: 30px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Título principal */
-  .results-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #5b0d1f; /* Color guinda */
-    margin-bottom: 20px;
-  }
-  
-  /* Lista de resultados */
-  .results-list {
-    list-style: none;
-    padding-left: 0;
-    text-align: left; /* Alinea el texto a la izquierda para ver mejor cada item */
-    margin: 20px 0;
-  }
-  
-  /* Cada elemento de la lista */
-  .results-list li {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.4;
-  }
-  
-  /* Resalta el nombre de la habilidad con el color guinda */
-  .results-skill-name {
-    font-weight: bold;
-    color: #5b0d1f;
-  }
-  
-  /* Si quieres estilos para los puntajes o niveles, usa una clase similar */
-  .results-skill-score {
-    font-weight: normal;
-    color: #333; /* Gris oscuro */
-    margin-left: 5px;
-  }
-  
-  /* Botón de "Regresar" u otros botones, si los incluyes */
-  .btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .btn-primary {
-    background-color: #5b0d1f;
-    border: none;
-    color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #8a172f;
-  }
-  
-  /* Si quieres estilos secundarios o de alerta, repítelos */
-  .btn-secondary {
-    background-color: #d3d3d3;
-    color: black;
-  }
-  
-  .btn-danger {
-    background-color: #ab3d4c;
-    border: none;
-    color: #fff;
-  }
-  .btn-danger:hover {
-    background-color: #8a172f;
-  }
-  
+}
+
+/* Mantener los estilos del botón de regreso consistentes */
+.return-dashboard {
+  margin-top: auto !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.return-dashboard:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
+  transform: translateX(-5px);
+}
+
+/* Colores para las barras según el nivel */
+.bar-fill[style*="width: 20%"],
+.bar-fill[style*="width: 40%"] {
+  background-color: #dc3545; /* Rojo */
+}
+
+.bar-fill[style*="width: 60%"] {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.bar-fill[style*="width: 80%"],
+.bar-fill[style*="width: 100%"] {
+  background-color: #28a745; /* Verde */
+}

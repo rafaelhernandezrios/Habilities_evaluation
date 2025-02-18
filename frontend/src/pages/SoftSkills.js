@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/SoftSkills.css";
+import logo from "../assets/logo1.png";
 
 const SoftSkills = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [responses, setResponses] = useState({});
   const [questions, setQuestions] = useState([]);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://14.10.2.192:20352/api/users/me", {
+          headers: { Authorization: token },
+        });
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error al obtener datos del usuario:", error);
+      }
+    };
+
+    fetchUserData();
     // Todas las preguntas extraídas del documento
     setQuestions([
       "Ante la adversidad se me facilita analizar las situaciones.",
@@ -115,57 +130,174 @@ const SoftSkills = () => {
       alert("Ocurrió un error. Intenta de nuevo.");
     }
   };
-  
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
-    <div className="softskills-container">
-      <h2 className="text-center softskills-title">Encuesta de Habilidades Blandas</h2>
+    <>
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-3 fixed-top">
+        <div className="container-fluid">
+          <img src={logo} alt="Logo Habilities" width="150" height="150" />
+          <Link className="navbar-brand h1 text_format" to="/dashboard" style={{ color: "#fff" }}>
+            Plataforma Inteligente MIRAI para la Detección de Talento
+          </Link>
+          
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-      {/* Barra de Progreso */}
-      <div className="progress-container">
-        <div className="progress-bar" style={{ width: `${(currentStep / (steps - 1)) * 100}%` }}></div>
-      </div>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  <i className="bi bi-person-circle"></i> Perfil
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/resources">
+                  <i className="bi bi-book"></i> Recursos
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button onClick={handleLogout} className="nav-link btn btn-link">
+                  <i className="bi bi-box-arrow-right"></i> Cerrar Sesión
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-      {/* Formulario */}
-      <form className="softskills-form" onSubmit={handleSubmit}>
-        <div className="form-step">
-          {questions.slice(currentStep * 5, (currentStep + 1) * 5).map((question, index) => (
-            <div className="question" key={index + currentStep * 5}>
-              <label>{question}</label>
-              <div className="options">
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="1" onChange={(e) => handleChange(e, index + currentStep * 5)} required />
-                  Rara vez o nunca
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="2" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Pocas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="3" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Algunas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="4" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Muchas veces
-                </label>
-                <label>
-                  <input type="radio" name={`q${index + currentStep * 5}`} value="5" onChange={(e) => handleChange(e, index + currentStep * 5)} />
-                  Muy frecuentemente o siempre
-                </label>
+      {/* Layout Principal */}
+      <div className="dashboard-layout">
+        {/* Sidebar */}
+        <div className="dashboard-sidebar">
+          <div className="sidebar-header">
+            <img src={logo} alt="Logo" className="sidebar-logo" />
+            <h3>Habilidades Blandas</h3>
+          </div>
+          
+          <div className="sidebar-menu">
+            <div className="survey-progress">
+              <div className="progress-info">
+                <span>Progreso</span>
+                <span>{currentStep + 1}/{steps}</span>
+              </div>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill"
+                  style={{ width: `${((currentStep + 1) / steps) * 100}%` }}
+                />
               </div>
             </div>
-          ))}
+          </div>
+
+          <button 
+            className="menu-item return-dashboard"
+            onClick={() => {
+              if(window.confirm('¿Estás seguro de que deseas volver al dashboard? Se perderán tus respuestas.')) {
+                navigate('/dashboard');
+              }
+            }}
+          >
+            <i className="bi bi-arrow-left-circle"></i>
+            Volver al Dashboard
+          </button>
         </div>
 
-        {/* Botones de Navegación */}
-        <div className="navigation-buttons">
-          {currentStep > 0 && <button type="button" className="btn btn-secondary" onClick={handlePrev}>Anterior</button>}
-          {currentStep < steps - 1 && <button type="button" className="btn btn-primary" onClick={handleNext}>Siguiente</button>}
-          {currentStep === steps - 1 && <button type="submit" className="btn btn-success">Enviar Respuestas</button>}
+        {/* Main Content */}
+        <div className="dashboard-main">
+          <div className="survey-container">
+            <div className="survey-header">
+              <h2>Evaluación de Habilidades Blandas</h2>
+              <p className="survey-description">
+                Esta evaluación nos ayudará a entender mejor tus habilidades interpersonales y de comportamiento.
+              </p>
+            </div>
+
+            <form className="survey-form" onSubmit={handleSubmit}>
+              <div className="questions-group">
+                {questions.slice(currentStep * 5, (currentStep + 1) * 5).map((question, index) => (
+                  <div className="question-card" key={index + currentStep * 5}>
+                    <div className="question-header">
+                      <span className="question-number">Pregunta {index + 1 + currentStep * 5}</span>
+                      <p className="question-text">{question}</p>
+                    </div>
+                    
+                    <div className="options-grid">
+                      {[
+                        { value: "1", label: "Rara vez o nunca" },
+                        { value: "2", label: "Pocas veces" },
+                        { value: "3", label: "Algunas veces" },
+                        { value: "4", label: "Muchas veces" },
+                        { value: "5", label: "Muy frecuentemente o siempre" }
+                      ].map((option) => (
+                        <label 
+                          key={option.value}
+                          className={`option-card ${
+                            responses[index + currentStep * 5] === option.value ? 'selected' : ''
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name={`q${index + currentStep * 5}`}
+                            value={option.value}
+                            onChange={(e) => handleChange(e, index + currentStep * 5)}
+                            required
+                          />
+                          <span className="option-text">{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="navigation-controls">
+                {currentStep > 0 && (
+                  <button 
+                    type="button" 
+                    className="nav-button prev"
+                    onClick={handlePrev}
+                  >
+                    <i className="bi bi-arrow-left"></i>
+                    Anterior
+                  </button>
+                )}
+                
+                {currentStep < steps - 1 ? (
+                  <button 
+                    type="button" 
+                    className="nav-button next"
+                    onClick={handleNext}
+                  >
+                    Siguiente
+                    <i className="bi bi-arrow-right"></i>
+                  </button>
+                ) : (
+                  <button 
+                    type="submit" 
+                    className="nav-button submit"
+                  >
+                    Finalizar
+                    <i className="bi bi-check-circle"></i>
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 

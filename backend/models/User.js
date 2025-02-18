@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     institution: { type: String, required: true },
     title: { type: String, required: true },
     research_area: { type: String, required: true },
+    academic_level: { type: String, required: true },
     student_id: { type: String, required: true },
     semester: { type: String, required: true },
     program: { type: String, required: true },

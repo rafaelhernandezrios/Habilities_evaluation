@@ -8,7 +8,7 @@ const router = express.Router();
 // Registro de usuario
 router.post("/register", async (req, res) => {
   try {
-      const { name, email, password, phone, dob, nationality, gender, institution, title, research_area, student_id, semester, program } = req.body;
+      const { name, email, password, phone, dob, nationality, gender, institution, title, research_area, academic_level, student_id, semester, program } = req.body;
 
       // Verificar si el usuario ya existe
       let user = await User.findOne({ email });
@@ -30,6 +30,7 @@ router.post("/register", async (req, res) => {
           institution,
           title,
           research_area,
+          academic_level,
           student_id,
           semester,
           program

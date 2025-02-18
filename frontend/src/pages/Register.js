@@ -17,6 +17,7 @@ const Register = () => {
     gender: "",
     institution: "",
     title: "",
+    academic_level: "",
     research_area: "",
     student_id: "",
     semester: "",
@@ -185,6 +186,15 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              name="academic_level"
+              className="form-control"
+              placeholder="Nivel Académico"
+              onChange={handleChange}
+              />
           </div>
           <div className="mb-3">
             <input
