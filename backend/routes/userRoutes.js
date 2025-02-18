@@ -40,28 +40,15 @@ router.post("/upload-cv", authMiddleware, upload.single("file"), async (req, res
 
     console.log("✅ Archivo recibido:", req.file);
 
-    // Buscar el usuario en la base de datos
     const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    // Crear carpeta si no existe
-    const uploadsDir = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      await fs.mkdir(uploadsDir, { recursive: true });
-    }
-
-    // Guardar el archivo en disco
-    //const filename = `cv_${user._id}.pdf`;
-    //const filePath = path.join(uploadsDir, filename);
-    user.cvPath = path.join("uploads", req.file.filename);
-
-    
-
-    // Guardar en la base de datos
-    //user.cvPath = filePath;
+    // Save S3 file location
+    user.cvPath = req.file.location; // S3 returns the file URL in location
     await user.save();
+
     return res.status(200).json({
       message: "CV subido correctamente",
       filePath: user.cvPath,
@@ -141,15 +128,8 @@ router.post("/analyze-cv", authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "No CV stored for analysis" });
     }
 
-    // 1. Verify file exists on disk
-    try {
-      await fsPromises.access(user.cvPath);
-    } catch (error) {
-      console.error("El archivo CV no existe en el servidor:", user.cvPath);
-      return res.status(404).json({ message: "El archivo CV no existe en el servidor" });
-    }
-
-    // 2. Extract text from the PDF
+    // Eliminar la verificación de archivo local ya que el archivo está en S3
+    // En su lugar, intentar extraer texto directamente desde la URL de S3
     const cvText = await extractTextFromPdf(user.cvPath);
 
     // 3. Analyze with GPT to get a summary or skill list

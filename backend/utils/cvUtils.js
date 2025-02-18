@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import pdf from "pdf-parse";
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import axios from 'axios';
 dotenv.config();
 
 // Make sure you set process.env.OPENAI_API_KEY or pass it to new OpenAI({ apiKey: ... }).
@@ -10,12 +11,23 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 /**
  * Extract text from a local PDF file using pdf-parse.
  */
-export async function extractTextFromPdf(pdfPath) {
-  // Read the PDF into a buffer
-  const pdfBuffer = await fs.readFile(pdfPath);
-  // Parse PDF with pdf-parse
-  const data = await pdf(pdfBuffer);
-  return data.text.trim();
+export async function extractTextFromPdf(pdfUrl) {
+  try {
+    // Descargar el archivo desde S3
+    const response = await axios.get(pdfUrl, {
+      responseType: 'arraybuffer'
+    });
+    
+    // Convertir el archivo descargado a buffer
+    const pdfBuffer = Buffer.from(response.data);
+    
+    // Analizar PDF con pdf-parse
+    const data = await pdf(pdfBuffer);
+    return data.text.trim();
+  } catch (error) {
+    console.error('Error al extraer texto del PDF:', error);
+    throw error;
+  }
 }
 export const evaluateMultipleIntelligences = (responses) => {
     const intelligences = {
