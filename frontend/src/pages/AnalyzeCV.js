@@ -22,7 +22,7 @@ const AnalyzeCV = () => {
 
       try {
         const response = await axios.post(
-          "http://14.10.2.192:20352/api/users/analyze-cv",
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/analyze-cv`,
           {},
           { headers: { Authorization: token } }
         );
@@ -111,7 +111,7 @@ const AnalyzeCV = () => {
 
     try {
       const response = await axios.post(
-        "http://14.10.2.192:20352/api/users/submit-interview",
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/submit-interview`,
         { answers },
         {
           headers: {

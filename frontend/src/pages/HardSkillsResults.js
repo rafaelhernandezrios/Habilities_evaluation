@@ -17,7 +17,7 @@ const HardSkillsResults = () => {
     const fetchResults = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://14.10.2.192:20352/api/users/me", {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/me`, {
           headers: { Authorization: token },
         });
         setResults(response.data.hardSkillsResults || {});

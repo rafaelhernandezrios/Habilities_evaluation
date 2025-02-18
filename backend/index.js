@@ -8,13 +8,11 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Configurar CORS correctamente
+// Configurar CORS utilizando una variable de entorno
+const allowedOrigins = process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : [];
+
 const corsOptions = {
-  origin: [
-    "http://localhost:20353", 
-    "http://14.10.2.192:20353", 
-    "https://habilities-evaluation-1.onrender.com",
-  ],
+  origin: allowedOrigins,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };

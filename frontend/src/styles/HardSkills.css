@@ -1,70 +1,181 @@
-.hardskills-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 40px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+@import './Dashboard.css';
+
+/* Ajuste para el navbar */
+.dashboard-layout {
+  padding-top: 180px;
+}
+
+/* Contenedor principal */
+.survey-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.survey-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.survey-header h2 {
+  color: #0d535b;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.survey-description {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Tarjetas de preguntas */
+.questions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.question-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+
+.question-header {
+  margin-bottom: 1.5rem;
+}
+
+.question-number {
+  color: #0d535b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Grid de opciones */
+.options-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.option-card {
+  background: rgba(13, 83, 91, 0.05);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.option-card:hover {
+  background: rgba(13, 83, 91, 0.1);
+}
+
+.option-card.selected {
+  background: rgba(13, 83, 91, 0.15);
+  border-color: #0d535b;
+}
+
+.option-card input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.option-text {
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+/* Controles de navegación */
+.navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.nav-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-button.prev {
+  background-color: rgba(13, 83, 91, 0.1);
+  color: #0d535b;
+}
+
+.nav-button.next,
+.nav-button.submit {
+  background-color: #0d535b;
+  color: white;
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Barra de progreso */
+.survey-progress {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #0d535b;
+  transition: width 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .survey-container {
+    padding: 1rem;
   }
-  
-  .hardskills-title {
-    color: #5b0d1f;
-    font-size: 1.8rem;
-    font-weight: bold;
+
+  .question-card {
+    padding: 1.5rem;
   }
-  
-  .progress-container {
-    width: 100%;
-    background-color: #d3d3d3;
-    border-radius: 5px;
-    margin-bottom: 20px;
+
+  .options-grid {
+    gap: 0.5rem;
   }
-  
-  .progress-bar {
-    height: 10px;
-    background-color: #5b0d1f;
-    border-radius: 5px;
+
+  .option-card {
+    padding: 0.8rem;
   }
-  
-  .question {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  .question label {
-    font-size: 1.1rem;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .options {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .options label {
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .btn-primary {
-    background-color: #5b0d1f;
-    border-color: #5b0d1f;
-  }
-  
-  .btn-primary:hover {
-    background-color: #8a172f;
-    border-color: #8a172f;
-  }
+}
   

@@ -22,7 +22,7 @@ const InterviewResults = () => {
           return;
         }
 
-        const response = await axios.get("http://14.10.2.192:20352/api/users/interview-responses", {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/interview-responses`, {
           headers: { Authorization: token },
         });
         setInterviewData(response.data);
