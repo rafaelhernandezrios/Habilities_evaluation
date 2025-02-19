@@ -11,6 +11,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     phone: "",
     dob: "",
     nationality: "",
@@ -27,9 +28,29 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
+  const checkPasswordStrength = (password) => {
+    let strength = 0;
+    if (password.length >= 6) strength += 1;
+    if (password.match(/[A-Z]/)) strength += 1;
+    if (password.match(/[0-9]/)) strength += 1;
+    if (password.match(/[!@#$%^&*(),.?":{}|<>]/)) strength += 1;
+    return strength;
+  };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+
+    if (name === 'password') {
+      setPasswordStrength(checkPasswordStrength(value));
+      setPasswordMatch(value === form.confirmPassword);
+    }
+    if (name === 'confirmPassword') {
+      setPasswordMatch(value === form.password);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -138,10 +159,42 @@ const Register = () => {
                 type="password"
                 name="password"
                 className="form-control"
-                placeholder="Contraseña"
+                placeholder="Contraseña (mínimo 6 caracteres)"
                 onChange={handleChange}
                 required
+                minLength="6"
               />
+              <div className="password-strength-meter mt-2">
+                <div className="strength-bars">
+                  <div className={`strength-bar ${passwordStrength >= 1 ? 'active' : ''}`}></div>
+                  <div className={`strength-bar ${passwordStrength >= 2 ? 'active' : ''}`}></div>
+                  <div className={`strength-bar ${passwordStrength >= 3 ? 'active' : ''}`}></div>
+                  <div className={`strength-bar ${passwordStrength >= 4 ? 'active' : ''}`}></div>
+                </div>
+                <small className="strength-text">
+                  {passwordStrength === 0 && "Muy débil"}
+                  {passwordStrength === 1 && "Débil"}
+                  {passwordStrength === 2 && "Media"}
+                  {passwordStrength === 3 && "Fuerte"}
+                  {passwordStrength === 4 && "Muy fuerte"}
+                </small>
+              </div>
+            </div>
+            <div className="mb-3">
+              <input
+                type="password"
+                name="confirmPassword"
+                className={`form-control ${form.confirmPassword ? (passwordMatch ? 'is-valid' : 'is-invalid') : ''}`}
+                placeholder="Confirmar contraseña (mínimo 6 caracteres)"
+                onChange={handleChange}
+                required
+                minLength="6"
+              />
+              {form.confirmPassword && !passwordMatch && (
+                <div className="invalid-feedback">
+                  Las contraseñas no coinciden
+                </div>
+              )}
             </div>
             <div className="mb-3">
               <input
@@ -219,13 +272,17 @@ const Register = () => {
               />
             </div>
             <div className="mb-3">
-              <input
-                type="text"
+              <select
                 name="academic_level"
-                className="form-control"
-                placeholder="Nivel Académico"
+                className="form-select"
                 onChange={handleChange}
-                />
+                required
+              >
+                <option value="">Selecciona un grado académico</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Media Superior">Media Superior</option>
+                <option value="Superior">Superior</option>
+              </select>
             </div>
             <div className="mb-3">
               <input

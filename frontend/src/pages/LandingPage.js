@@ -26,10 +26,10 @@ const LandingPage = () => {
           <div className="navbar-brand-container d-flex align-items-center">
             <img src={logo} alt="Logo Habilities" width="80" height="80" className="navbar-logo" />
             <a className="navbar-brand h1 text_format d-none d-lg-block" href="#" style={{ color: "#fff" }}>
-              Plataforma Inteligente MIRAI
+              Plataforma Inteligente para detectar habilidades y aptitudes
             </a>
             <a className="navbar-brand h1 text_format d-lg-none" href="#" style={{ color: "#fff" }}>
-              MIRAI
+            Plataforma Inteligente MIRAI
             </a>
           </div>
           
