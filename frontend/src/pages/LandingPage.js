@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/LandingPage.css"; // Archivo de estilos personalizados
@@ -6,25 +6,52 @@ import logo from "../assets/logo1.png"; // Imagen del logo
 import background from "../assets/ipn3.jpeg"; // Imagen de fondo
 
 const LandingPage = () => {
+  useEffect(() => {
+    // Asegurarse de que Bootstrap está inicializado correctamente
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-3 fixed-top">
-        <div className="container-fluid">
-          <img src={logo} alt="Logo Habilities" width="150" height="150" />
-          <a className="navbar-brand h1 text_format" href="#" style={{ color: "#fff" }}>
-            Plataforma Inteligente MIRAI para la Detección de Talento
-          </a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-2 fixed-top">
+        <div className="container">
+          <div className="navbar-brand-container d-flex align-items-center">
+            <img src={logo} alt="Logo Habilities" width="80" height="80" className="navbar-logo" />
+            <a className="navbar-brand h1 text_format d-none d-lg-block" href="#" style={{ color: "#fff" }}>
+              Plataforma Inteligente MIRAI
+            </a>
+            <a className="navbar-brand h1 text_format d-lg-none" href="#" style={{ color: "#fff" }}>
+              MIRAI
+            </a>
+          </div>
+          
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
+
+          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/login">Iniciar Sesión</Link>
+                <Link className="nav-link px-3" to="/login">Iniciar Sesión</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/register">Registrarse</Link>
+                <Link className="nav-link px-3" to="/register">Registrarse</Link>
               </li>
             </ul>
           </div>
@@ -41,7 +68,7 @@ const LandingPage = () => {
 
       {/* Sección de Objetivos */}
       <section className="container my-5">
-        <h2 className="text-center mb-4">🔹 Objetivos Principales</h2>
+        <h4 className="text-center mb-4"> Objetivos Principales</h4>
         <div className="row text-center">
           <div className="col-md-6 col-lg-3 mb-4">
             <i className="bi bi-bar-chart-fill icon-feature"></i>

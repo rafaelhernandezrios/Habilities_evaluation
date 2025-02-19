@@ -1,8 +1,41 @@
 @import './Dashboard.css';
 
-/* Ajuste para el navbar */
+/* Navbar Styles */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.navbar-brand {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white !important;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+/* Ajustes del layout */
 .dashboard-layout {
-  padding-top: 180px;
+  margin-top: 100px;
+  padding-top: 20px;
 }
 
 /* Contenedor principal */
@@ -160,22 +193,89 @@
   transition: width 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .nav-item {
+    padding: 0.5rem 0;
+  }
+
+  .nav-link {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5rem 1rem !important;
+    margin: 0.25rem 0;
+    border-radius: 0.25rem;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dashboard-layout {
+    margin-top: 80px;
+  }
+
   .survey-container {
     padding: 1rem;
   }
 
-  .question-card {
-    padding: 1.5rem;
+  .dashboard-sidebar {
+    position: fixed;
+    left: -280px;
+    top: 80px;
+    height: calc(100vh - 80px);
+    border-radius: 0 15px 15px 0;
+    transition: left 0.3s ease;
   }
 
-  .options-grid {
-    gap: 0.5rem;
+  .dashboard-sidebar.show {
+    left: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-logo {
+    width: 50px;
+    height: 50px;
   }
 
-  .option-card {
-    padding: 0.8rem;
+  .navbar-brand {
+    font-size: 0.9rem;
   }
+
+  .dashboard-sidebar {
+    width: 100%;
+    left: -100%;
+  }
+}
+
+/* Overlay para cuando el sidebar está abierto */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.sidebar-overlay.show {
+  display: block;
 }
   

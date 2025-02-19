@@ -7,27 +7,59 @@ body {
 /* Navbar */
 .navbar {
   background-color: rgba(0, 0, 0, 0.9);
-  padding: 15px;
+  padding: 0.5rem 1rem;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 .navbar-brand {
-  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
   font-weight: bold;
   color: white !important;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.navbar-nav {
+  align-items: center;
 }
 
 .navbar-nav .nav-link {
   color: white !important;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
   transition: 0.3s ease-in-out;
 }
 
 .navbar-nav .nav-link:hover {
   color: #f8c471 !important;
+}
+
+.navbar-toggler {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
 }
 
 /* Hero Section */
@@ -116,41 +148,79 @@ p {
 }
 
 /* Responsividad */
-@media (max-width: 768px) {
-  .hero-section {
-      padding: 80px 10px;
+@media (max-width: 991.98px) {
+  body {
+    padding-top: 100px;
   }
 
-  .hero-section h1 {
-      font-size: 2.2rem;
+  .navbar {
+    padding: 0.5rem;
   }
 
-  .hero-section p {
-      font-size: 1.1rem;
+  .navbar-logo {
+    width: 60px;
+    height: 60px;
   }
 
-  .purpose-box {
-      padding: 15px;
-      max-width: 90%;
+  .navbar-brand {
+    font-size: 1rem;
   }
 
-  .icon-feature {
-      font-size: 2rem;
+  .navbar-nav {
+    padding: 1rem 0;
   }
 
-  h4 {
-      font-size: 1.3rem;
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0;
+    text-align: center;
   }
 
-  p {
-      font-size: 1rem;
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
   }
 
-  .btn-primary {
-      font-size: 1rem;
-      padding: 12px 25px;  
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .nav-item {
+    padding: 0.5rem 0;
+  }
+
+  .nav-link {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5rem 1rem !important;
+    margin: 0.25rem 0;
+    border-radius: 0.25rem;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
+
+@media (max-width: 575.98px) {
+  body {
+    padding-top: 80px;
+  }
+
+  .navbar-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .navbar-brand {
+    font-size: 0.9rem;
+  }
+}
+
 .btn-custom {
   background-color: #0d535b !important;
   border: none;
@@ -163,4 +233,9 @@ p {
 
 .btn-custom:hover {
   background-color: #083a44 !important;
+}
+
+/* Ajustar los estilos del navbar collapse */
+.navbar-collapse {
+  flex-grow: 0; /* Evita que el collapse ocupe todo el espacio disponible */
 }

@@ -1,8 +1,58 @@
 @import './Dashboard.css';
 
-/* Ajuste para el navbar */
+/* Navbar Styles */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Ajustes del layout */
 .dashboard-layout {
-  padding-top: 180px; /* Ajustar según la altura del navbar */
+  margin-top: 100px;
+  padding-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+  .dashboard-sidebar {
+    position: fixed;
+    left: -280px;
+    top: 80px;
+    height: calc(100vh - 80px);
+    border-radius: 0 15px 15px 0;
+    transition: left 0.3s ease;
+  }
+
+  .dashboard-sidebar.show {
+    left: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .dashboard-sidebar {
+    width: 100%;
+    left: -100%;
+  }
+}
+
+/* Overlay para cuando el sidebar está abierto */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.sidebar-overlay.show {
+  display: block;
 }
 
 /* Contenedor principal */
@@ -160,38 +210,7 @@
   transition: width 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .survey-container {
-    padding: 1rem;
-  }
-
-  .question-card {
-    padding: 1.5rem;
-  }
-
-  .options-grid {
-    gap: 0.5rem;
-  }
-
-  .option-card {
-    padding: 0.8rem;
-  }
-}
-
 /* Estilos específicos para el navbar */
-.navbar {
-  background-color: rgba(0, 0, 0, 0.9) !important;
-  padding: 15px 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  height: 180px;
-  display: flex;
-  align-items: center;
-}
-
 .navbar .container-fluid {
   width: 100%;
   max-width: 1400px;

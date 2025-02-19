@@ -1,62 +1,136 @@
+/* Navbar Styles */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+/* Login Styles */
 .login-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f8f9fa; /* Color de fondo claro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 20px;
+  background-color: #f8f9fa;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 1rem;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #5b0d1f; /* Color guinda */
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+.btn-login {
+  background-color: #0d535b; /* Color guinda */
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-login:hover {
+  background-color: #0d535b; /* Color guinda más oscuro */
+}
+
+.login-message {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.login-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.login-footer a {
+  color: #5b0d1f;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
   }
-  
-  .login-card {
-    width: 400px;
-    padding: 30px;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+  .navbar-nav {
     text-align: center;
   }
-  
-  .login-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #5b0d1f; /* Color guinda */
+
+  .nav-item {
+    padding: 0.5rem 0;
   }
-  
-  .form-control {
-    border-radius: 8px;
+
+  .nav-link {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5rem 1rem !important;
+    margin: 0.25rem 0;
+    border-radius: 0.25rem;
   }
-  
-  .btn-login {
-    background-color: #0d535b; /* Color guinda */
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
-  
-  .btn-login:hover {
-    background-color: #0d535b; /* Color guinda más oscuro */
+
+  .login-card {
+    margin: 1rem;
   }
-  
-  .login-message {
-    margin-top: 10px;
-    font-size: 1rem;
+}
+
+@media (max-width: 575.98px) {
+  .navbar-logo {
+    width: 50px;
+    height: 50px;
   }
-  
-  .login-footer {
-    margin-top: 15px;
+
+  .navbar-brand {
     font-size: 0.9rem;
   }
-  
-  .login-footer a {
-    color: #5b0d1f;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .login-footer a:hover {
-    text-decoration: underline;
-  }
+}
   

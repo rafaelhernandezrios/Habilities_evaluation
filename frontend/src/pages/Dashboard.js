@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
   const [mainContent, setMainContent] = useState('overview');
   const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -203,39 +204,52 @@ const Dashboard = () => {
     </div>
   );
 
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
+  const closeSidebar = () => {
+    setShowSidebar(false);
+  };
+
   return (
     <>
       {/* Navbar estilo LandingPage */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-3 fixed-top">
-        <div className="container-fluid">
-          <img src={logo} alt="Logo Habilities" width="150" height="150" />
-          <Link className="navbar-brand h1 text_format" to="/dashboard" style={{ color: "#fff" }}>
-            Plataforma Inteligente MIRAI para la Detección de Talento
-          </Link>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-2 fixed-top">
+        <div className="container">
+          <div className="navbar-brand-container d-flex align-items-center">
+            <img src={logo} alt="Logo Habilities" width="80" height="80" className="navbar-logo" />
+            <a className="navbar-brand h1 text_format d-none d-lg-block" href="#" style={{ color: "#fff" }}>
+              Plataforma Inteligente MIRAI
+            </a>
+            <a className="navbar-brand h1 text_format d-lg-none" href="#" style={{ color: "#fff" }}>
+              MIRAI
+            </a>
+          </div>
           
+          {/* Botón para mostrar/ocultar sidebar en móvil */}
           <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
+            className="btn btn-link d-lg-none me-3"
+            onClick={toggleSidebar}
+            style={{ color: 'white' }}
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className="bi bi-list fs-4"></i>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
+          <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  <i className="bi bi-person-circle"></i> Perfil
+                <Link className="nav-link px-3" to="/dashboard">
+                  <i className="bi bi-house-door"></i> Inicio
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/resources">
-                  <i className="bi bi-book"></i> Recursos
+                <Link className="nav-link px-3" to="/profile">
+                  <i className="bi bi-person"></i> Perfil
                 </Link>
               </li>
               <li className="nav-item">
-                <button onClick={handleLogout} className="nav-link btn btn-link">
+                <button className="nav-link px-3" onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right"></i> Cerrar Sesión
                 </button>
               </li>
@@ -246,8 +260,14 @@ const Dashboard = () => {
 
       {/* Dashboard Layout */}
       <div className="dashboard-layout">
-        {/* Side Menu */}
-        <div className="dashboard-sidebar">
+        {/* Overlay para cerrar el sidebar en móvil */}
+        <div 
+          className={`sidebar-overlay ${showSidebar ? 'show' : ''}`} 
+          onClick={closeSidebar}
+        ></div>
+
+        {/* Sidebar */}
+        <div className={`dashboard-sidebar ${showSidebar ? 'show' : ''}`}>
           <div className="sidebar-header">
             <img src={logo} alt="Logo" className="sidebar-logo" />
             <h3>Panel de Control</h3>
@@ -276,6 +296,15 @@ const Dashboard = () => {
               Evaluación de Habilidades
             </button>
           </div>
+
+          {/* Botón de cerrar sesión */}
+          <button 
+            className="sidebar-logout"
+            onClick={handleLogout}
+          >
+            <i className="bi bi-box-arrow-left"></i>
+            Cerrar Sesión
+          </button>
         </div>
 
         {/* Main Content */}
