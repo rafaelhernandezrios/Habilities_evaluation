@@ -1,10 +1,16 @@
 @import './Dashboard.css';
 
+/* Asegurar scroll suave en toda la página */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Contenedor principal de la entrevista */
 .interview-container {
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
+  scroll-margin-top: 120px; /* Ajustar según la altura de tu navbar */
 }
 
 /* Asistente AI */
@@ -118,6 +124,7 @@
 
 /* Sección de preguntas */
 .question-section {
+  scroll-margin-top: 120px; /* Ajustar según la altura de tu navbar */
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -517,7 +524,7 @@ h2 {
     border-radius: 8px;
     outline: none;
     background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    color: #111010;
     backdrop-filter: blur(5px);
     transition: 0.3s ease-in-out;
   }
@@ -567,6 +574,44 @@ h2 {
   .btn-secondary:disabled {
     background: rgba(108, 117, 125, 0.1);
     color: #6c757d;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .navbar-brand-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .navbar-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white !important;
+    white-space: normal;
+    line-height: 1.2;
+  }
+  
+  /* Ajustar el layout para el nuevo navbar */
+  .dashboard-layout {
+    margin-top: 100px;
+    padding-top: 20px;
   }
   
  

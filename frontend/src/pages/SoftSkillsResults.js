@@ -1,11 +1,17 @@
 // src/pages/SoftSkillsResults.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/SoftSkillsResults.css";
+import logo from "../assets/logo1.png";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const SoftSkillsResults = () => {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState('overview');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -14,10 +20,10 @@ const SoftSkillsResults = () => {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/me`, {
           headers: { Authorization: token },
         });
-        // "softSkillsResults" lo guardaste en el backend como user.softSkillsResults
+        console.log("Datos recibidos:", response.data.softSkillsResults);
         setResults(response.data.softSkillsResults || {});
       } catch (error) {
-        console.error("Error al obtener resultados de Soft Skills:", error);
+        console.error("Error al obtener resultados:", error);
       } finally {
         setLoading(false);
       }
@@ -26,35 +32,267 @@ const SoftSkillsResults = () => {
     fetchResults();
   }, []);
 
-  if (loading) {
-    return <div>Cargando resultados...</div>;
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
-  // Si no hay nada en results, mostrar un mensaje
-  if (!results || Object.keys(results).length === 0) {
-    return <div>No se encontraron resultados de Habilidades Blandas.</div>;
-  }
+  const handleDownload = () => {
+    if (!results) return;
+
+    const content = `
+      RESULTADOS DE HABILIDADES BLANDAS
+      ================================
+
+      ${Object.entries(results).map(([skill, data]) => `
+      ${skill}
+      Nivel: ${data.level}
+      `).join('\n')}
+    `;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Resultados_Habilidades_Blandas_${new Date().toLocaleDateString()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
+  const getLevelColor = (level) => {
+    switch (level) {
+      case 'Nivel muy bajo':
+        return '#dc3545'; // Rojo
+      case 'Nivel bajo':
+        return '#ff9800'; // Naranja
+      case 'Nivel medio':
+        return '#ffc107'; // Amarillo
+      case 'Nivel alto':
+        return '#4caf50'; // Verde claro
+      case 'Nivel muy alto':
+        return '#28a745'; // Verde oscuro
+      default:
+        return '#6c757d'; // Gris por defecto
+    }
+  };
+
+  const getLevelText = (level) => {
+    const percentage = (level / 5) * 100;
+    if (percentage <= 40) return 'Nivel Bajo';
+    if (percentage <= 60) return 'Nivel Medio';
+    return 'Nivel Alto';
+  };
+
+  const skillDescriptions = {
+    'Autocontrol': 'Capacidad para mantener las emociones bajo control y evitar reacciones negativas ante provocaciones.',
+    'Resolución de Problemas': 'Habilidad para identificar problemas y desarrollar soluciones efectivas.',
+    'Creatividad': 'Capacidad para generar ideas originales y soluciones innovadoras.',
+    'Liderazgo': 'Habilidad para guiar y motivar a otros hacia el logro de objetivos comunes.',
+    'Trabajo en Equipo': 'Capacidad para colaborar eficazmente con otros y contribuir al éxito del grupo.',
+    'Comunicación': 'Habilidad para expresar ideas de manera clara y efectiva.',
+    'Responsabilidad': 'Capacidad para cumplir compromisos y asumir las consecuencias de las acciones.',
+    'Adaptabilidad': 'Flexibilidad para ajustarse a cambios y nuevas situaciones.',
+    'Proactividad': 'Iniciativa para actuar y generar cambios positivos.',
+    'Análisis': 'Capacidad para examinar situaciones y tomar decisiones informadas.'
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="loading-container">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+          <p>Cargando resultados...</p>
+        </div>
+      );
+    }
+
+    if (!results) {
+      return (
+        <div className="error-container">
+          <i className="bi bi-exclamation-circle"></i>
+          <p>No se encontraron resultados.</p>
+        </div>
+      );
+    }
+
+    switch (activeSection) {
+      case 'details':
+        return (
+          <div className="results-section">
+            <h3>
+              <i className="bi bi-list-check"></i>
+              Habilidades Blandas
+            </h3>
+            <div className="level-legend">
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#dc3545' }}></span>
+                <span>Nivel muy bajo</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#ff9800' }}></span>
+                <span>Nivel bajo</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#ffc107' }}></span>
+                <span>Nivel medio</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#4caf50' }}></span>
+                <span>Nivel alto</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#28a745' }}></span>
+                <span>Nivel muy alto</span>
+              </div>
+            </div>
+            <div className="skills-grid">
+              {Object.entries(results).map(([skill, data]) => (
+                <div key={skill} className="skill-card">
+                  <div className="skill-header">
+                    <h4>{skill}</h4>
+                  </div>
+                  <p className="skill-description">{skillDescriptions[skill]}</p>
+                  <div className="level-bar">
+                    <div 
+                      className="level-fill"
+                      style={{ 
+                        width: `${(data.level / 5) * 100}%`,
+                        backgroundColor: getLevelColor(data.level)
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'overview':
+      default:
+        return (
+          <div className="results-content">
+            <div className="skills-summary">
+              <h3>
+                <i className="bi bi-graph-up"></i>
+                Resumen de Habilidades
+              </h3>
+              <div className="skills-chart">
+                {Object.entries(results).map(([skill, data]) => (
+                  <div key={skill} className="chart-bar">
+                    <div className="bar-label">
+                      <span>{skill}</span>
+                    </div>
+                    <div className="bar-container">
+                      <div 
+                        className="bar-fill" 
+                        style={{ 
+                          width: `${(data.level / 5) * 100}%`,
+                          backgroundColor: getLevelColor(data.level)
+                        }}
+                      >
+                        {data.level}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="results-actions">
+              <button className="btn btn-primary" onClick={handleDownload}>
+                <i className="bi bi-download"></i> Descargar Resultados
+              </button>
+            </div>
+          </div>
+        );
+    }
+  };
 
   return (
-    <div className="results-container">
-      <div className="results-card">
-        <h2 className="results-title">Resultados de Habilidades Blandas</h2>
-  
-        <ul className="results-list">
-          {Object.entries(results).map(([skill, data]) => (
-            <li key={skill}>
-              <span className="results-skill-name">{skill}</span>:{" "}
-              <span className="results-skill-score">
-                {data.level}
-              </span>
-            </li>
-          ))}
-        </ul>
-  
-        {/* Ejemplo de botón para volver al dashboard */}
-        <a href="/dashboard" className="btn btn-primary">Regresar</a>
+    <>
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-gray py-3 fixed-top">
+        <div className="container-fluid">
+          <img src={logo} alt="Logo Habilities" width="150" height="150" />
+          <Link className="navbar-brand h1 text_format" to="/dashboard" style={{ color: "#fff" }}>
+            Plataforma Inteligente MIRAI
+          </Link>
+          
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  <i className="bi bi-person-circle"></i> Perfil
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/resources">
+                  <i className="bi bi-book"></i> Recursos
+                </Link>
+              </li>
+              <li className="nav-item">
+                <button onClick={handleLogout} className="nav-link btn btn-link">
+                  <i className="bi bi-box-arrow-right"></i> Cerrar Sesión
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Layout */}
+      <div className="dashboard-layout">
+        {/* Sidebar */}
+        <div className="dashboard-sidebar">
+          <div className="sidebar-header">
+            <img src={logo} alt="Logo" className="sidebar-logo" />
+            <h3>Habilidades Blandas</h3>
+          </div>
+          
+          <div className="sidebar-menu">
+            <button 
+              className={`menu-item ${activeSection === 'overview' ? 'active' : ''}`}
+              onClick={() => setActiveSection('overview')}
+            >
+              <i className="bi bi-speedometer2"></i>
+              Resumen
+            </button>
+            <button 
+              className={`menu-item ${activeSection === 'details' ? 'active' : ''}`}
+              onClick={() => setActiveSection('details')}
+            >
+              <i className="bi bi-list-check"></i>
+              Detalles
+            </button>
+
+            <button 
+              className="menu-item return-dashboard"
+              onClick={() => navigate('/dashboard')}
+            >
+              <i className="bi bi-arrow-left-circle"></i>
+              Volver al Dashboard
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="dashboard-main">
+          {renderContent()}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

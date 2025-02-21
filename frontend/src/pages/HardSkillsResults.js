@@ -61,9 +61,20 @@ const HardSkillsResults = () => {
   };
 
   const getLevelColor = (level) => {
-    if (level <= 2) return '#dc3545'; // Rojo para nivel bajo
-    if (level <= 3) return '#ffc107'; // Amarillo para nivel medio
-    return '#28a745'; // Verde para nivel alto
+    switch (level) {
+      case 'Nivel muy bajo':
+        return '#dc3545'; // Rojo
+      case 'Nivel bajo':
+        return '#ff9800'; // Naranja
+      case 'Nivel medio':
+        return '#ffc107'; // Amarillo
+      case 'Nivel alto':
+        return '#4caf50'; // Verde claro
+      case 'Nivel muy alto':
+        return '#28a745'; // Verde oscuro
+      default:
+        return '#6c757d'; // Gris por defecto
+    }
   };
 
   const getLevelText = (level) => {
@@ -112,14 +123,33 @@ const HardSkillsResults = () => {
               <i className="bi bi-list-check"></i>
               Tipos de Inteligencias
             </h3>
+            <div className="level-legend">
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#dc3545' }}></span>
+                <span>Nivel muy bajo</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#ff9800' }}></span>
+                <span>Nivel bajo</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#ffc107' }}></span>
+                <span>Nivel medio</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#4caf50' }}></span>
+                <span>Nivel alto</span>
+              </div>
+              <div className="legend-item">
+                <span className="color-box" style={{ backgroundColor: '#28a745' }}></span>
+                <span>Nivel muy alto</span>
+              </div>
+            </div>
             <div className="intelligence-grid">
               {Object.entries(results).map(([skill, data]) => (
                 <div key={skill} className="intelligence-card">
                   <div className="intelligence-header">
                     <h4>{skill}</h4>
-                    <div className="level-indicator" style={{ color: getLevelColor(data.level) }}>
-                      {getLevelText(data.level)}
-                    </div>
                   </div>
                   <p className="intelligence-description">{intelligenceDescriptions[skill]}</p>
                   <div className="level-bar">
@@ -133,20 +163,6 @@ const HardSkillsResults = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            <div className="level-legend">
-              <div className="legend-item">
-                <span className="color-box" style={{ backgroundColor: '#dc3545' }}></span>
-                <span>Nivel Bajo (1-2)</span>
-              </div>
-              <div className="legend-item">
-                <span className="color-box" style={{ backgroundColor: '#ffc107' }}></span>
-                <span>Nivel Medio (3)</span>
-              </div>
-              <div className="legend-item">
-                <span className="color-box" style={{ backgroundColor: '#28a745' }}></span>
-                <span>Nivel Alto (4-5)</span>
-              </div>
             </div>
           </div>
         );
@@ -164,9 +180,6 @@ const HardSkillsResults = () => {
                   <div key={skill} className="chart-bar">
                     <div className="bar-label">
                       <span>{skill}</span>
-                      <span className="level-text" style={{ color: getLevelColor(data.level) }}>
-                        {getLevelText(data.level)}
-                      </span>
                     </div>
                     <div className="bar-container">
                       <div 
