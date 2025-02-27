@@ -255,17 +255,19 @@ router.post("/submit-soft-skills", authMiddleware, async (req, res) => {
     // Evaluar las habilidades blandas
     const evaluation = evaluateSoftSkills(responses);
 
-    // Guardar en la base de datos
-    user.softSkillsResults = evaluation.results;
-    user.score = evaluation.totalScore;
+    // Guardar en la base de datos con la estructura completa
+    user.softSkillsResults = {
+      results: evaluation.results,
+      totalScore: evaluation.totalScore,
+      institutionalLevel: evaluation.institutionalLevel
+    };
     user.softSkillsSurveyCompleted = true;
 
     await user.save();
 
     res.json({
       message: "Encuesta de habilidades blandas guardada exitosamente",
-      results: evaluation.results,
-      totalScore: evaluation.totalScore,
+      ...evaluation
     });
   } catch (error) {
     console.error("Error al procesar la encuesta:", error);
@@ -302,6 +304,22 @@ router.post("/submit-hard-skills", authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error("Error al procesar el cuestionario:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+
+// Ruta para obtener el CV
+router.get("/view-cv", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user || !user.cvPath) {
+      return res.status(404).json({ message: "CV no encontrado" });
+    }
+
+    // Devolver la URL del CV almacenado en S3
+    res.json({ cvUrl: user.cvPath });
+  } catch (error) {
+    console.error("Error al obtener el CV:", error);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });

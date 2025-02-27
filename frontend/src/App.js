@@ -12,6 +12,8 @@ import PrivateRoute from './components/PrivateRoute';
 import SoftSkillsResults from './pages/SoftSkillsResults';
 import HardSkillsResults from './pages/HardSkillsResults';
 import InterviewResults from './pages/InterviewResults';
+import ViewCV from './pages/ViewCV';
+
 function App() {
   return (
     <Router>
@@ -72,6 +74,14 @@ function App() {
           element={
             <PrivateRoute>
               <HardSkillsResults />
+            </PrivateRoute>
+          }
+         />
+         <Route
+          path="/view-cv"
+          element={
+            <PrivateRoute>
+              <ViewCV />
             </PrivateRoute>
           }
          />

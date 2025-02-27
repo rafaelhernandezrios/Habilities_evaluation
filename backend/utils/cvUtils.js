@@ -70,45 +70,157 @@ export const evaluateMultipleIntelligences = (responses) => {
   
   export const evaluateSoftSkills = (responses) => {
     const competencies = {
-        "Pensamiento Analítico": [1, 21, 41, 61, 81, 101, 121, 141],
-        "Respuesta ante los problemas": [2, 22, 42, 62, 82, 102, 122, 142],
-        "Iniciativa": [3, 23, 43, 63, 83, 103, 123, 143],
-        "Autodominio": [4, 24, 44, 64, 84, 104, 124, 144],
-        "Afrontamiento al estrés": [5, 25, 45, 65, 85, 105, 125, 145],
-        "Socialización": [6, 26, 46, 66, 86, 106, 126, 146],
-        "Contribución": [7, 27, 47, 67, 87, 107, 127, 147],
-        "Habilidad verbal": [8, 28, 48, 68, 88, 108, 128, 148],
-        "Principios morales": [9, 29, 49, 69, 89, 109, 129, 149],
-        "Compromiso": [10, 30, 50, 70, 90, 110, 130, 150],
+        "Cognitiva": {
+            "Pensamiento Analítico": [1, 21, 41, 61, 81, 101, 121, 141],
+            "Respuesta ante los problemas": [2, 22, 42, 62, 82, 102, 122, 142],
+            "Iniciativa": [3, 23, 43, 63, 83, 103, 123, 143]
+        },
+        "Afectiva": {
+            "Autodominio": [4, 24, 44, 64, 84, 104, 124, 144],
+            "Afrontamiento al estrés": [5, 25, 45, 65, 85, 105, 125, 145]
+        },
+        "Social": {
+            "Socialización": [6, 26, 46, 66, 86, 106, 126, 146],
+            "Contribución": [7, 27, 47, 67, 87, 107, 127, 147],
+            "Verbal": [8, 28, 48, 68, 88, 108, 128, 148]
+        },
+        "Moral": {
+            "Principios morales": [9, 29, 49, 69, 89, 109, 129, 149],
+            "Compromiso": [10, 30, 50, 70, 90, 110, 130, 150]
+        },
+        "Acometimiento": {
+            "Adaptación": [11, 31, 51, 71, 91, 111, 131, 151],
+            "Innovación": [12, 32, 52, 72, 92, 112, 132, 152],
+            "Inventiva": [13, 33, 53, 73, 93, 113, 133, 153]
+        },
+        "Directriz": {
+            "Convencimiento": [14, 34, 54, 74, 94, 114, 134, 154],
+            "Líder": [15, 35, 55, 75, 95, 115, 135, 155],
+            "Trabajo colaborativo": [16, 36, 56, 76, 96, 116, 136, 156]
+        },
+        "Gestión": {
+            "Programación y orden": [17, 37, 57, 77, 97, 117, 137, 157],
+            "Capacidad didáctica": [18, 38, 58, 78, 98, 118, 138, 158]
+        },
+        "Alto potencial": {
+            "Orientación al éxito": [19, 39, 59, 79, 99, 119, 139, 159],
+            "Empuje": [20, 40, 60, 80, 100, 120, 140, 160]
+        }
     };
 
     const scoreLevels = {
-        "Nivel muy bajo": [8, 19],
-        "Nivel bajo": [20, 25],
-        "Nivel medio": [26, 30],
-        "Nivel alto": [31, 35],
-        "Nivel muy alto": [36, 40],
+        "Cognitiva": {
+            "Nivel muy bajo": [24, 78],
+            "Nivel bajo": [79, 85],
+            "Nivel medio": [86, 105],
+            "Nivel alto": [106, 115],
+            "Nivel muy alto": [116, 120]
+        },
+        "Afectiva": {
+            "Nivel muy bajo": [16, 53],
+            "Nivel bajo": [54, 59],
+            "Nivel medio": [60, 72],
+            "Nivel alto": [73, 77],
+            "Nivel muy alto": [78, 80]
+        },
+        "Social": {
+            "Nivel muy bajo": [24, 77],
+            "Nivel bajo": [78, 85],
+            "Nivel medio": [86, 104],
+            "Nivel alto": [105, 113],
+            "Nivel muy alto": [114, 120]
+        },
+        "Moral": {
+            "Nivel muy bajo": [16, 62],
+            "Nivel bajo": [62, 65],
+            "Nivel medio": [66, 78],
+            "Nivel alto": [79, 79],
+            "Nivel muy alto": [80, 80]
+        },
+        "Acometimiento": {
+            "Nivel muy bajo": [24, 79],
+            "Nivel bajo": [80, 86],
+            "Nivel medio": [87, 105],
+            "Nivel alto": [106, 115],
+            "Nivel muy alto": [116, 120]
+        },
+        "Directriz": {
+            "Nivel muy bajo": [24, 75],
+            "Nivel bajo": [76, 82],
+            "Nivel medio": [83, 101],
+            "Nivel alto": [102, 110],
+            "Nivel muy alto": [111, 120]
+        },
+        "Gestión": {
+            "Nivel muy bajo": [16, 55],
+            "Nivel bajo": [56, 60],
+            "Nivel medio": [61, 73],
+            "Nivel alto": [74, 78],
+            "Nivel muy alto": [79, 80]
+        },
+        "Alto potencial": {
+            "Nivel muy bajo": [16, 55],
+            "Nivel bajo": [56, 59],
+            "Nivel medio": [60, 72],
+            "Nivel alto": [73, 77],
+            "Nivel muy alto": [78, 80]
+        },
+        "Institucional": {
+            "Nivel muy bajo": [160, 561],
+            "Nivel bajo": [562, 596],
+            "Nivel medio": [597, 708],
+            "Nivel alto": [709, 757],
+            "Nivel muy alto": [758, 800]
+        }
     };
 
     let results = {};
     let totalScore = 0;
 
-    for (const [competency, questionNumbers] of Object.entries(competencies)) {
-        let sum = questionNumbers.reduce((acc, qNum) => acc + (responses[qNum] || 1), 0); // Asumimos 1 si no hay respuesta
-        totalScore += sum;
+    // Evaluar cada competencia
+    for (const [competency, skills] of Object.entries(competencies)) {
+        let competencyScore = 0;
+        let skillResults = {};
 
+        // Evaluar cada habilidad dentro de la competencia
+        for (const [skill, questions] of Object.entries(skills)) {
+            let sum = questions.reduce((acc, qNum) => acc + (parseInt(responses[qNum]) || 0), 0);
+            competencyScore += sum;
+            skillResults[skill] = { score: sum };
+        }
+
+        // Determinar nivel de la competencia
         let level = "Nivel muy bajo";
-        for (const [levelName, range] of Object.entries(scoreLevels)) {
-            if (sum >= range[0] && sum <= range[1]) {
+        for (const [levelName, range] of Object.entries(scoreLevels[competency])) {
+            if (competencyScore >= range[0] && competencyScore <= range[1]) {
                 level = levelName;
                 break;
             }
         }
 
-        results[competency] = { score: sum, level };
+        results[competency] = {
+            score: competencyScore,
+            level: level,
+            skills: skillResults
+        };
+
+        totalScore += competencyScore;
     }
 
-    return { totalScore, results };
+    // Determinar nivel institucional
+    let institutionalLevel = "Nivel muy bajo";
+    for (const [levelName, range] of Object.entries(scoreLevels.Institucional)) {
+        if (totalScore >= range[0] && totalScore <= range[1]) {
+            institutionalLevel = levelName;
+            break;
+        }
+    }
+
+    return {
+        totalScore,
+        institutionalLevel,
+        results
+    };
 };
   
 /**

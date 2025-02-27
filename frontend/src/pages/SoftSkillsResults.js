@@ -64,17 +64,17 @@ const SoftSkillsResults = () => {
   const getLevelColor = (level) => {
     switch (level) {
       case 'Nivel muy bajo':
-        return '#dc3545'; // Rojo
+        return '#dc3545';
       case 'Nivel bajo':
-        return '#ff9800'; // Naranja
+        return '#ff9800';
       case 'Nivel medio':
-        return '#ffc107'; // Amarillo
+        return '#ffc107';
       case 'Nivel alto':
-        return '#4caf50'; // Verde claro
+        return '#4caf50';
       case 'Nivel muy alto':
-        return '#28a745'; // Verde oscuro
+        return '#28a745';
       default:
-        return '#6c757d'; // Gris por defecto
+        return '#6c757d';
     }
   };
 
@@ -86,17 +86,34 @@ const SoftSkillsResults = () => {
   };
 
   const skillDescriptions = {
-    'Autocontrol': 'Capacidad para mantener las emociones bajo control y evitar reacciones negativas ante provocaciones.',
-    'Resolución de Problemas': 'Habilidad para identificar problemas y desarrollar soluciones efectivas.',
-    'Creatividad': 'Capacidad para generar ideas originales y soluciones innovadoras.',
-    'Liderazgo': 'Habilidad para guiar y motivar a otros hacia el logro de objetivos comunes.',
-    'Trabajo en Equipo': 'Capacidad para colaborar eficazmente con otros y contribuir al éxito del grupo.',
-    'Comunicación': 'Habilidad para expresar ideas de manera clara y efectiva.',
-    'Responsabilidad': 'Capacidad para cumplir compromisos y asumir las consecuencias de las acciones.',
-    'Adaptabilidad': 'Flexibilidad para ajustarse a cambios y nuevas situaciones.',
-    'Proactividad': 'Iniciativa para actuar y generar cambios positivos.',
-    'Análisis': 'Capacidad para examinar situaciones y tomar decisiones informadas.'
+    "Cognitiva": "Capacidad de análisis, resolución de problemas e iniciativa.",
+    "Afectiva": "Capacidad de autodominio y manejo del estrés.",
+    "Social": "Habilidades de socialización, contribución y comunicación verbal.",
+    "Moral": "Principios morales y nivel de compromiso.",
+    "Acometimiento": "Capacidad de adaptación, innovación e inventiva.",
+    "Directriz": "Habilidades de convencimiento, liderazgo y trabajo colaborativo.",
+    "Gestión": "Capacidad de programación, orden y didáctica.",
+    "Alto potencial": "Orientación al éxito y empuje personal."
   };
+
+  const renderSkillCard = (competency, data) => (
+    <div key={competency} className="skill-card">
+      <div className="skill-header">
+        <h4>{competency}</h4>
+      </div>
+      <p className="skill-description">{skillDescriptions[competency]}</p>
+      <div className="skill-details">
+        <p>Nivel: {data.level}</p>
+        <p>Puntaje: {data.score}</p>
+      </div>
+      {Object.entries(data.skills || {}).map(([skill, skillData]) => (
+        <div key={skill} className="sub-skill">
+          <span>{skill}:</span>
+          <span>{skillData.score} puntos</span>
+        </div>
+      ))}
+    </div>
+  );
 
   const renderContent = () => {
     if (loading) {
@@ -150,23 +167,7 @@ const SoftSkillsResults = () => {
               </div>
             </div>
             <div className="skills-grid">
-              {Object.entries(results).map(([skill, data]) => (
-                <div key={skill} className="skill-card">
-                  <div className="skill-header">
-                    <h4>{skill}</h4>
-                  </div>
-                  <p className="skill-description">{skillDescriptions[skill]}</p>
-                  <div className="level-bar">
-                    <div 
-                      className="level-fill"
-                      style={{ 
-                        width: `${(data.level / 5) * 100}%`,
-                        backgroundColor: getLevelColor(data.level)
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
+              {Object.entries(results).map(([skill, data]) => renderSkillCard(skill, data))}
             </div>
           </div>
         );
